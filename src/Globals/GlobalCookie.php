@@ -4,7 +4,7 @@ namespace PlugHttp\Globals;
 
 use PlugHttp\Utils\ArrayUtil;
 
-class GlobalCookie implements GlobalInterface, Adder
+class GlobalCookie implements GlobalInterface
 {
 	private $cookie;
 
@@ -38,9 +38,11 @@ class GlobalCookie implements GlobalInterface, Adder
 		return !empty($this->cookie[$value]);
 	}
 
-	public function add($key, $value)
+	public function add(string $key, $value, $expire = 0, $path = "", $domain = "", $secure = false, $httponly = false)
 	{
 		$this->cookie[$key] = $value;
+
+		$this->setCookie($key, $value, $expire = 0, $path = "", $domain = "", $secure = false, $httponly = false);
 
 		return $this;
 	}
@@ -50,5 +52,10 @@ class GlobalCookie implements GlobalInterface, Adder
 		unset($this->cookie[$key]);
 
 		return $this;
+	}
+
+	private function setCookie(string $key, $value, $expire = 0, $path = "", $domain = "", $secure = false, $httponly = false)
+	{
+		setcookie($key, $value, $expire, $path, $domain, $secure, $httponly);
 	}
 }
