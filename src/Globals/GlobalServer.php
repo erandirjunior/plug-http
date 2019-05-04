@@ -64,7 +64,8 @@ class GlobalServer
 		return $url;
 	}
 
-	public function getContent() {
+	public function getContent()
+	{
 		return file_get_contents("php://input");
 	}
 }
