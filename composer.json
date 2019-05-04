@@ -1,0 +1,29 @@
+{
+  "name": "erandir/plug-http",
+  "description": "HTTP library for php",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Antonio Erandir Feitosa Soares Junior",
+      "email": "aefs12junior@gmail.com"
+    }
+  ],
+  "version" : "v1.0",
+  "require": {
+    "php": ">=7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "PlugHttp\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "PlugRoute\\Test\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.2"
+  }
+}
