@@ -1,5 +1,9 @@
 # Changelog
 
+### v1.2
+* Improvements in get form-data body picking
+* Improvements in get url-encoded body picking
+
 ### v1.1
 * Added parameter code on redirect method
 * Removing unnecessary code
