@@ -1,4 +1,4 @@
-# Working with request
+# Working with response
 
 ## Initialize
 ```php
