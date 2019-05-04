@@ -2,10 +2,9 @@
 
 namespace PlugHttp\Body;
 
-use PlugHttp\Globals\GlobalServer;
 use PlugHttp\Utils\ContentHelper;
 
-class Json implements Handler, Advancer//implements Body
+class Json implements Handler, Advancer
 {
 	private $handler;
 
@@ -24,7 +23,7 @@ class Json implements Handler, Advancer//implements Body
 		if (ContentHelper::contentIs($server, 'json')) {
 			return $this->getBody($server->getContent());
 		}
-
+		
 		return $this->handler->handle($server);
 	}
 }
