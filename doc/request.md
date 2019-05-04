@@ -102,8 +102,9 @@ $request->getUrl();
 
 > Getting url
 ```php
-$request->redirect($url);
+$request->redirect($url, $code);
 ```
+**$code is optional**
 
 ## See too
 * How to manipulate [Response](response.md)

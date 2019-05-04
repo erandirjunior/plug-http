@@ -1,5 +1,9 @@
 # plug-http
 
+[![Latest Stable Version](https://poser.pugx.org/erandir/plug-http/v/stable)](https://packagist.org/packages/erandir/plug-http)
+[![Latest Unstable Version](https://poser.pugx.org/erandir/plug-http/v/unstable)](https://packagist.org/packages/erandir/plug-http)
+[![License](https://poser.pugx.org/erandir/plug-http/license)](https://packagist.org/packages/erandir/plug-http)
+
 #### Powerful library for manipulate PHP Globals
 
 > Use the library to work with REQUEST values.

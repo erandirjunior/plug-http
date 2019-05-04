@@ -57,8 +57,9 @@ class GlobalRequest
 		return $this->get->except($values);
 	}
 
-	public function redirect(string $path)
+	public function redirect(string $path, int $code = 301)
 	{
+		header("HTTP/1.0 {$code}");
 		header("Location: {$path}");
 		return true;
 	}
