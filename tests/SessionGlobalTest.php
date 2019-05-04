@@ -50,6 +50,7 @@ class SessionGlobalTest extends TestCase
 
 	public function testRemove()
 	{
+		$_SESSION['key'] = 'value';
 		$expected = [
 			'name' => 'Erandir Junior',
 			'email' => 'aefs12junior@gmail.com'
