@@ -11,17 +11,19 @@ class FormData implements Handler, Advancer
 
 	public function getBody($content)
 	{
-		preg_match_all('/"(.+)"+\s+(.+(?:-{5,})?)/', $content, $matches);
+		$values = [];
 
-		$array = [];
+		if (!empty($content)) {
+			preg_match_all('/"(.+)"+\s+(.+(?:-{5,})?)/', $content, $matches);
 
-		foreach ($matches[1] as $key => $match) {
-			$matchKey = $this->removeCaractersOfString($match, ["'", '"']);
+			foreach ($matches[1] as $key => $match) {
+				$matchKey = $this->removeCaractersOfString($match, ["'", '"']);
 
-			$array[$matchKey] = $this->getValueFormData($matches[2][$key]);
+				$values[$matchKey] = $this->getValueFormData($matches[2][$key]);
+			}
 		}
 
-		return $array;
+		return $values;
 	}
 
 	public function getValueFormData($value)
