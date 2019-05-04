@@ -1,5 +1,9 @@
 # Changelog
 
+### v1.1
+* Added parameter code on redirect method
+* Removing unnecessary code
+
 ### v1.0
 * Added class to manipulate request
 * Added class to manipulate response
