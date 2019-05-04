@@ -22,7 +22,7 @@ class Response
 		return $this->headers;
 	}
 
-	public function setStatusCode($statusCode)
+	public function setStatusCode(int $statusCode)
 	{
 		$this->statusCode = $statusCode;
 
