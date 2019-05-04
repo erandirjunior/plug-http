@@ -3,7 +3,6 @@
 namespace PlugHttp\Globals;
 
 use PlugHttp\Utils\ArrayUtil;
-use PlugHttp\Utils\Cleaner;
 
 class GlobalGet implements GlobalInterface, Adder
 {

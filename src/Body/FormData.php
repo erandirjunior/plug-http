@@ -3,7 +3,6 @@
 namespace PlugHttp\Body;
 
 use PlugHttp\Globals\GlobalServer;
-use PlugHttp\Server;
 use PlugHttp\Utils\ContentHelper;
 
 class FormData implements Handler, Advancer
