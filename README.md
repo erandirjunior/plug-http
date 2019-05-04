@@ -24,3 +24,4 @@
 
 * <a href="https://github.com/erandirjunior/plug-http/blob/master/doc/installation.md">Complete Documentation</a>
 * <a href="https://github.com/erandirjunior/plug-http/blob/master/doc/changelog.md">Changelog</a>
+* <a href="https://github.com/erandirjunior/plug-http/tree/master/example">Example</a>
