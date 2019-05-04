@@ -10,18 +10,22 @@ class FormUrlEncoded implements Handler, Advancer//implements Body
 
 	public function getBody($content)
 	{
-		if (!strpos($content, '&')) {
-			$array = explode('=', $content);
-			return [$array[0] => $array[1]];
-		}
+		$values = [];
 
-		$array = explode('&', $content);
+		if (!empty($content)) {
+			if (!strpos($content, '&')) {
+				$array = explode('=', $content);
+				return [$array[0] => $array[1]];
+			}
 
-		foreach ($array as $value) {
-			$aux = explode('=', $value);
-			$arrayFormated[$aux[0]] = $aux[1];
+			$contentArray = explode('&', $content);
+
+			foreach ($contentArray as $value) {
+				$aux = explode('=', $value);
+				$values[$aux[0]] = $aux[1];
+			}
 		}
-		return $arrayFormated;
+		return $values;
 	}
 
 	public function next(Handler $handler)
