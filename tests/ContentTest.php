@@ -21,7 +21,7 @@ class ContentTest extends TestCase
 
 	public function testFormData()
 	{
-		$instance = new ServerClassFormData([]);
+		$instance = new ServerClassFormData(['REQUEST_METHOD' => 'PUT']);
 		$content = new Content($instance);
 		self::assertEquals(['test' => 'myTest'], $content->getBody());
 	}

@@ -57,6 +57,10 @@ class CookieGlobalTest extends TestCase
 		self::assertEquals($expected, $this->instance->remove('age')->all());
 	}
 
+	/**
+	 * @testQueryExcept
+	 * @runInSeparateProcess
+	 **/
 	public function testAdd()
 	{
 		$expected = [
