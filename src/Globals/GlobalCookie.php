@@ -42,7 +42,7 @@ class GlobalCookie implements GlobalInterface
 	{
 		$this->cookie[$key] = $value;
 
-		$this->setCookie($key, $value, $expire = 0, $path = "", $domain = "", $secure = false, $httponly = false);
+		$this->setCookie($key, $value, $expire, $path, $domain, $secure, $httponly);
 
 		return $this;
 	}
@@ -50,11 +50,17 @@ class GlobalCookie implements GlobalInterface
 	public function remove(string $key)
 	{
 		unset($this->cookie[$key]);
+		$this->removeValueFromGlobal($key);
 
 		return $this;
 	}
 
-	private function setCookie(string $key, $value, $expire = 0, $path = "", $domain = "", $secure = false, $httponly = false)
+	public function removeValueFromGlobal($key)
+	{
+		unset($_COOKIE[$key]);
+	}
+
+	private function setCookie(string $key, $value, $expire, $path, $domain, $secure, $httponly)
 	{
 		setcookie($key, $value, $expire, $path, $domain, $secure, $httponly);
 	}

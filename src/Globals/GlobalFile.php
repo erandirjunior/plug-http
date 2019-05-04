@@ -41,7 +41,13 @@ class GlobalFile implements GlobalInterface
 	public function remove(string $key)
 	{
 		unset($this->file[$key]);
+		$this->removeValueFromGlobal($key);
 
 		return $this;
+	}
+
+	public function removeValueFromGlobal($key)
+	{
+		unset($_FILES[$key]);
 	}
 }

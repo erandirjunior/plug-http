@@ -48,7 +48,15 @@ class GlobalSession implements GlobalInterface, Adder
 	public function remove(string $key)
 	{
 		unset($this->session[$key]);
+		$this->removeValueFromGlobal($key);
 
 		return $this;
+	}
+
+	public function removeValueFromGlobal($key)
+	{
+		if (!empty($_SESSION)) {
+			unset($_SESSION[$key]);
+		}
 	}
 }

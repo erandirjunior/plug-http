@@ -3,6 +3,7 @@
 namespace PlugHttp\Globals;
 
 use PlugHttp\Utils\ArrayUtil;
+use PlugHttp\Utils\Cleaner;
 
 class GlobalGet implements GlobalInterface, Adder
 {
@@ -48,5 +49,13 @@ class GlobalGet implements GlobalInterface, Adder
 	public function remove(string $key)
 	{
 		unset($this->get[$key]);
+		$this->removeValueFromGlobal($key);
+
+		return $this;
+	}
+
+	public function removeValueFromGlobal($key)
+	{
+		unset($_GET[$key]);
 	}
 }
