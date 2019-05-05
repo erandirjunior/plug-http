@@ -59,7 +59,7 @@ class GlobalGet implements GlobalInterface, Adder
 		unset($_GET[$key]);
 	}
 
-	public function setGlobal($key, $value)
+	private function setGlobal($key, $value)
 	{
 		$_GET[$key] = $value;
 	}

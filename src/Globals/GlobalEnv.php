@@ -59,7 +59,7 @@ class GlobalEnv implements GlobalInterface, Adder
 		unset($_ENV[$key]);
 	}
 
-	public function setGlobal($key, $value)
+	private function setGlobal($key, $value)
 	{
 		$_ENV[$key] = $value;
 	}
