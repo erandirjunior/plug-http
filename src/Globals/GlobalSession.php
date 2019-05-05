@@ -61,7 +61,7 @@ class GlobalSession implements GlobalInterface, Adder
 		}
 	}
 
-	public function setGlobal($key, $value)
+	private function setGlobal($key, $value)
 	{
 		$_SESSION[$key] = $value;
 	}
