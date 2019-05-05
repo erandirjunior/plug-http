@@ -41,6 +41,7 @@ class GlobalGet implements GlobalInterface, Adder
 	public function add($key, $value)
 	{
 		$this->get[$key] = $value;
+		$this->setGlobal($key, $value);
 
 		return $this;
 	}
@@ -56,5 +57,10 @@ class GlobalGet implements GlobalInterface, Adder
 	public function removeValueFromGlobal($key)
 	{
 		unset($_GET[$key]);
+	}
+
+	public function setGlobal($key, $value)
+	{
+		$_GET[$key] = $value;
 	}
 }

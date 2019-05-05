@@ -4,43 +4,43 @@ namespace PlugHttp\Globals;
 
 use PlugHttp\Utils\ArrayUtil;
 
-class GlobalSession implements GlobalInterface, Adder
+class GlobalEnv implements GlobalInterface, Adder
 {
-	private $session;
+	private $env;
 
-	public function __construct($session)
+	public function __construct($env)
 	{
-		$this->session = $session;
+		$this->env = $env;
 	}
 
 	public function get(string $key): string
 	{
-		return $this->session[$key];
+		return $this->env[$key];
 	}
 
 	public function all(): array
 	{
-		return $this->session;
+		return $this->env;
 	}
 
 	public function except(array $values): array
 	{
-		return ArrayUtil::except($this->session, $values);
+		return ArrayUtil::except($this->env, $values);
 	}
 
 	public function only(array $values): array
 	{
-		return ArrayUtil::only($this->session, $values);
+		return ArrayUtil::only($this->env, $values);
 	}
 
 	public function has(string $value): bool
 	{
-		return !empty($this->session[$value]);
+		return !empty($this->env[$value]);
 	}
 
 	public function add($key, $value)
 	{
-		$this->session[$key] = $value;
+		$this->env[$key] = $value;
 		$this->setGlobal($key, $value);
 
 		return $this;
@@ -48,7 +48,7 @@ class GlobalSession implements GlobalInterface, Adder
 
 	public function remove(string $key)
 	{
-		unset($this->session[$key]);
+		unset($this->env[$key]);
 		$this->removeValueFromGlobal($key);
 
 		return $this;
@@ -56,13 +56,11 @@ class GlobalSession implements GlobalInterface, Adder
 
 	public function removeValueFromGlobal($key)
 	{
-		if (!empty($_SESSION)) {
-			unset($_SESSION[$key]);
-		}
+		unset($_ENV[$key]);
 	}
 
 	public function setGlobal($key, $value)
 	{
-		$_SESSION[$key] = $value;
+		$_ENV[$key] = $value;
 	}
 }
