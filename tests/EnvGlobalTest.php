@@ -47,4 +47,26 @@ class EnvGlobalTest extends TestCase
 	{
 		self::assertEquals(true, $this->instance->has('age'));
 	}
+
+	public function testAdd()
+	{
+		$this->instance->add('key', 'value');
+		$expected = [
+			'name' => 'Erandir Junior',
+			'age' => 23,
+			'email' => 'aefs12junior@gmail.com',
+			'key' => 'value'
+		];
+		self::assertEquals($expected, $this->instance->all());
+	}
+
+	public function testRemove()
+	{
+		$this->instance->remove('email');
+		$expected = [
+			'name' => 'Erandir Junior',
+			'age' => 23,
+		];
+		self::assertEquals($expected, $this->instance->all());
+	}
 }

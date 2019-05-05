@@ -14,6 +14,5 @@ class RequestTest extends TestCase
 
 		$isTrue = $request instanceof \PlugHttp\Globals\GlobalRequest;
 		self::assertEquals(true, $isTrue);
-		self::assertEquals(true, $isTrue);
 	}
 }
