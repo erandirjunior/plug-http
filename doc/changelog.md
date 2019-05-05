@@ -1,5 +1,9 @@
 # Changelog
 
+### v1.3
+* Added class for handle env
+* Added values in super globals
+
 ### v1.2
 * Improvements in get form-data body picking
 * Improvements in get url-encoded body picking
