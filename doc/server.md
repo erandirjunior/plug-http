@@ -51,3 +51,4 @@ $server->getContent();
 * How to manipulate [File](file.md)
 * How to manipulate [Session](session.md)
 * How to manipulate [Cookie](cookie.md)
+* How to manipulate [Env](env.md)

@@ -24,6 +24,8 @@
 
 > Manipulate SERVER values
 
+> Manipulate ENV values
+
 #### Learn More
 
 * <a href="https://github.com/erandirjunior/plug-http/blob/master/doc/installation.md">Complete Documentation</a>

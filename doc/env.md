@@ -2,46 +2,46 @@
 
 ## Initialize
 ```php
-use \PlugHttp\Get;
+use \PlugHttp\Env;
 
-$get = Get::create();
+$env = Env::create();
 ```
 
 ## Methods
 
 >  Getting all values
 ```php
-$get->all();
+$env->all();
 ```
 
 > Getting specific value
 ```php
-$get->get($key);
+$env->get($key);
 ```
 
 > Getting all values except
 ```php
-$get->except([$keyOne, $keyTwo]);
+env->except([$keyOne, $keyTwo]);
 ```
 
 > Getting only values
 ```php
-$get->only([$keyOne, $keyTwo]);
+env->only([$keyOne, $keyTwo]);
 ```
 
 > Add value
 ```php
-$get->add($key, $value);
+env->add($key, $value);
 ```
 
 > Remove value
 ```php
-$get->remove($key);
+env->remove($key);
 ```
 
 > Check if has value
 ```php
-$get->has($key);
+env->has($key);
 ```
 
 ## See too
@@ -51,4 +51,3 @@ $get->has($key);
 * How to manipulate [Server](server.md)
 * How to manipulate [Session](session.md)
 * How to manipulate [Cookie](cookie.md)
-* How to manipulate [Env](env.md)
