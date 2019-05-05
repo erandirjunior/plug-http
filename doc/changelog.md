@@ -1,5 +1,9 @@
 # Changelog
 
+### v1.4
+* Applying teste in all project
+* Improvements in classes
+
 ### v1.3
 * Added class for handle env
 * Added values in super globals
