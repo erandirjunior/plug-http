@@ -2,7 +2,7 @@
 
 ### v1.5
 * Create method to get specific header values
-* Added methods in GlobalRequest class that manipulate headers values
+* Added methods in GlobalRequest class that manipulate header values
 
 ### v1.4
 * Applying tests in all project
