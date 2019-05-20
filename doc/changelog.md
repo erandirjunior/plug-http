@@ -1,5 +1,9 @@
 # Changelog
 
+### v1.5
+* Create method to get specific header values
+* Added methods in GlobalRequest class that manipulate headers values
+
 ### v1.4
 * Applying teste in all project
 * Improvements in classes
