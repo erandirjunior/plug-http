@@ -137,6 +137,23 @@ class RequestGlobalTest extends TestCase
 		self::assertEquals($expected, $result);
 	}
 
+	public function testHeaders()
+	{
+		$expected = [
+			'REQUEST_METHOD' => 'POST',
+			'REQUEST_URI' => '/test'
+		];
+
+		$result = $this->instance->headers();
+		self::assertEquals($expected, $result);
+	}
+
+	public function testGetHeader()
+	{
+		$result = $this->instance->header('REQUEST_METHOD');
+		self::assertEquals('POST', $result);
+	}
+
 	/**
 	 * @testQueryExcept
 	 * @runInSeparateProcess

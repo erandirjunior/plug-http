@@ -61,6 +61,7 @@ class GlobalRequest
 	{
 		header("HTTP/1.0 {$code}");
 		header("Location: {$path}");
+
 		return true;
 	}
 
@@ -125,5 +126,15 @@ class GlobalRequest
 	public function files()
 	{
 		return $this->file->all();
+	}
+
+	public function headers()
+	{
+		return $this->server->headers();
+	}
+
+	public function header(string $header)
+	{
+		return $this->server->header($header);
 	}
 }

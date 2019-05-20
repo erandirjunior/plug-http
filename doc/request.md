@@ -95,12 +95,22 @@ $request->method();
 $request->isMethod($method);
 ```
 
+> Getting all headers
+```php
+$request->headers();
+```
+
+> Getting specific header value
+```php
+$request->header('Content-Type');
+```
+
 > Getting url
 ```php
 $request->getUrl();
 ```
 
-> Getting url
+> Redirecting
 ```php
 $request->redirect($url, $code);
 ```

@@ -29,6 +29,11 @@ $server->isMethod($method);
 $server->headers();
 ```
 
+> Getting specific headers
+```php
+$server->header('Content-Type');
+```
+
 > Getting url
 ```php
 $server->getUrl();

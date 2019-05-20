@@ -54,4 +54,9 @@ class ServerTest extends TestCase
 	{
 		self::assertEquals("", $this->instance->getContent());
 	}
+
+	public function testGetHeader()
+	{
+		self::assertEquals('json', $this->instance->header('CONTENT_TYPE'));
+	}
 }

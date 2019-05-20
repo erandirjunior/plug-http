@@ -53,6 +53,11 @@ class GlobalServer
 		return $this->server;
 	}
 
+	public function header(string $header)
+	{
+		return $this->server[$header];
+	}
+
 	public function getUrl()
 	{
 		$url = parse_url($this->server['REQUEST_URI'], PHP_URL_PATH);
