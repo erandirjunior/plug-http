@@ -5,7 +5,7 @@
 * Added methods in GlobalRequest class that manipulate headers values
 
 ### v1.4
-* Applying teste in all project
+* Applying tests in all project
 * Improvements in classes
 
 ### v1.3
