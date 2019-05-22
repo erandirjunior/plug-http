@@ -30,7 +30,18 @@ class FormData implements Handler, Advancer
 	{
 		$valueCleared   = $this->removeCaractersOfString($value, ["'", '"']);
 		$onlyHasTraces  = preg_split("/-{20,}/", $valueCleared, PREG_SPLIT_OFFSET_CAPTURE);
-		return count($onlyHasTraces) > 1 ? '' : $valueCleared;
+		return $this->checkIfValueIsEmpty($onlyHasTraces) > 1 ? '' : $valueCleared;
+	}
+
+	private function checkIfValueIsEmpty($onlyHasTraces)
+	{
+		$response = true;
+
+		if (is_array($onlyHasTraces)) {
+			$response = count($onlyHasTraces) > 1;
+		}
+
+		return $response;
 	}
 
 	public function removeCaractersOfString($str, array $caracters)
