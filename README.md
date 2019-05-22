@@ -1,10 +1,10 @@
 # plug-http
 
 [![Latest Stable Version](https://poser.pugx.org/erandir/plug-http/v/stable)](https://packagist.org/packages/erandir/plug-http)
-[![Latest Unstable Version](https://poser.pugx.org/erandir/plug-http/v/unstable)](https://packagist.org/packages/erandir/plug-http)
 [![License](https://poser.pugx.org/erandir/plug-http/license)](https://packagist.org/packages/erandir/plug-http)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/erandirjunior/plug-http/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/erandirjunior/plug-http/?branch=master)
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/erandirjunior/plug-http/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
+[![Build Status](https://scrutinizer-ci.com/g/erandirjunior/plug-http/badges/build.png?b=master)](https://scrutinizer-ci.com/g/erandirjunior/plug-http/build-status/master)
 
 #### Powerful library for manipulate PHP Globals
 
