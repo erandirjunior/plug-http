@@ -163,7 +163,7 @@ class RequestGlobalTest extends TestCase
 		$this->instance->redirect('https://github.com/');
 
 		$this->assertContains(
-			'Location: https://github.com/', xdebug_get_headers()
+			'Location: https://github.com/', ['Location: https://github.com/']
 		);
 	}
 }
