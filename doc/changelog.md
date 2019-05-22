@@ -1,5 +1,8 @@
 # Changelog
 
+### v1.6
+* Added method to check if value is empty"
+
 ### v1.5
 * Create method to get specific header values
 * Added methods in GlobalRequest class that manipulate header values
