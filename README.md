@@ -6,6 +6,13 @@
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/erandirjunior/plug-http/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)
 [![Build Status](https://scrutinizer-ci.com/g/erandirjunior/plug-http/badges/build.png?b=master)](https://scrutinizer-ci.com/g/erandirjunior/plug-http/build-status/master)
 
+## Installation
+
+Just install with Composer
+
+`composer require erandir/plug-http`
+
+
 #### Powerful library for manipulate PHP Globals
 
 > Use the library to work with REQUEST values.
