@@ -2,6 +2,12 @@
 
 namespace PlugHttp\Body;
 
+use PlugHttp\Factory\FormDataFactory;
+use PlugHttp\Factory\FormUrlEncodedFactory;
+use PlugHttp\Factory\JsonFactory;
+use PlugHttp\Factory\PostFactory;
+use PlugHttp\Factory\TextPlainFactory;
+use PlugHttp\Factory\XmlFactory;
 use PlugHttp\Globals\GlobalServer;
 
 class Content
@@ -15,35 +21,19 @@ class Content
 
 	public function getBody()
 	{
-		$json 		= $this->createJson();
-		$post 		= $this->createPost();
-		$formData 	= $this->createFormData();
-		$urlEncode 	= $this->createFormUrlEncoded();
+		$json 		= JsonFactory::create();
+		$post 		= PostFactory::create();
+		$formData 	= FormDataFactory::create();
+		$urlEncode 	= FormUrlEncodedFactory::create();
+		$textPlain  = TextPlainFactory::create();
+		$xml        = XmlFactory::create();
 
 		$json->next($formData);
 		$formData->next($urlEncode);
-		$urlEncode->next($post);
+		$urlEncode->next($textPlain);
+		$textPlain->next($xml);
+		$xml->next($post);
 
 		return $json->handle($this->server);
-	}
-
-	private function createFormData()
-	{
-		return new FormData();
-	}
-
-	private function createFormUrlEncoded()
-	{
-		return new FormUrlEncoded();
-	}
-
-	private function createPost()
-	{
-		return new Post($_POST);
-	}
-
-	private function createJson()
-	{
-		return new Json();
 	}
 }
