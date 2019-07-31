@@ -7,7 +7,9 @@ use PlugHttp\Body\Content;
 use PlugRoute\Test\Classes\ServerClass;
 use PlugRoute\Test\Classes\ServerClassFormData;
 use PlugRoute\Test\Classes\ServerClassJson;
+use PlugRoute\Test\Classes\ServerClassTextPlain;
 use PlugRoute\Test\Classes\ServerClassUrlEncoded;
+use PlugRoute\Test\Classes\ServerClassXml;
 
 class ContentTest extends TestCase
 {
@@ -42,5 +44,50 @@ class ContentTest extends TestCase
 		$instance->flag(2);
 		$content = new Content($instance);
 		self::assertEquals(['test' => 'myTest', 'lang' => 'PHP', 'dev' => 'Erandir'], $content->getBody());
+	}
+
+	public function testPlainText()
+	{
+		$instance = new ServerClassTextPlain([]);
+		$content = new Content($instance);
+		self::assertEquals('Text of example', $content->getBody());
+	}
+
+	public function testApplicationXml()
+	{
+		$instance = new ServerClassXml([]);
+		$instance->flag(1);
+		$content = new Content($instance);
+
+		$xml = '<?xml version="1.0" encoding="UTF-8"?>
+                <note>
+                   <to>Tove</to>
+                   <from>Jani</from>
+                   <heading>Reminder</heading>
+                   <body>Don\'t forget me this weekend!</body>
+                </note>';
+
+		$element = new \SimpleXMLElement($xml);
+
+        self::assertEquals($element, $content->getBody());
+	}
+
+	public function testTextXml()
+	{
+        $instance = new ServerClassXml([]);
+        $instance->flag(2);
+        $content = new Content($instance);
+
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>
+                <note>
+                   <to>Tove</to>
+                   <from>Jani</from>
+                   <heading>Reminder</heading>
+                   <body>Don\'t forget me this weekend!</body>
+                </note>';
+
+        $element = new \SimpleXMLElement($xml);
+
+        self::assertEquals($element, $content->getBody());
 	}
 }
