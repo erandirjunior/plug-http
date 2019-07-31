@@ -1,8 +1,8 @@
 # Changelog
 
 ### v1.7
-* Added method to get body from xml content type
-* Added method to get body from plain text content type
+* Added class to get body from xml content type
+* Added class to get body from plain text content type
 * Added method to get body as object
 * Added more tests
 
