@@ -31,6 +31,19 @@ class GlobalRequest
 	{
 		return $this->body;
 	}
+
+	public function bodyObject()
+	{
+		if (is_array($this->body)) {
+            return ArrayUtil::converToObject($this->body);
+        }
+
+		if (is_object($this->body)) {
+		    return $this->body;
+        }
+
+		throw new \Exception("It wasn't possible convert to object");
+	}
 	
 	public function input(string $value)
 	{
