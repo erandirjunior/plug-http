@@ -7,7 +7,9 @@ use PlugHttp\Body\Content;
 use PlugHttp\Globals\GlobalGet;
 use PlugHttp\Globals\GlobalFile;
 use PlugHttp\Globals\GlobalRequest;
+use PlugRoute\Test\Classes\ServerClassTextPlain;
 use PlugRoute\Test\Classes\ServerClassUrlEncoded;
+use PlugRoute\Test\Classes\ServerClassXml;
 
 class RequestGlobalTest extends TestCase
 {
@@ -35,6 +37,50 @@ class RequestGlobalTest extends TestCase
 	public function testAll()
 	{
 		self::assertEquals(['test' => 'myTest', 'lang' => 'PHP', 'dev' => 'Erandir'], $this->instance->all());
+	}
+
+	public function testBodyObject()
+	{
+	    $object = new \stdClass();
+	    $object->test = 'myTest';
+	    $object->lang = 'PHP';
+	    $object->dev = 'Erandir';
+
+		self::assertEquals($object, $this->instance->bodyObject());
+	}
+
+	public function testBodyObjectFromObject()
+	{
+        $get = new GlobalGet(['query' => true, 'start' => 10, 'limit' => 30]);
+        $server = new ServerClassXml([]);
+        $server->flag(1);
+        $content = new Content($server);
+        $file = new GlobalFile([]);
+        $this->instance = new GlobalRequest($content->getBody(), $get, $file, $server);
+
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>
+                <note>
+                   <to>Tove</to>
+                   <from>Jani</from>
+                   <heading>Reminder</heading>
+                   <body>Don\'t forget me this weekend!</body>
+                </note>';
+
+        $element = new \SimpleXMLElement($xml);
+
+        self::assertEquals($element, $this->instance->bodyObject());
+	}
+
+	public function testBodyObjectError()
+	{
+        $get = new GlobalGet(['query' => true, 'start' => 10, 'limit' => 30]);
+        $server = new ServerClassTextPlain([]);
+        $content = new Content($server);
+        $file = new GlobalFile([]);
+        $this->instance = new GlobalRequest($content->getBody(), $get, $file, $server);
+        $this->expectException(\Exception::class);
+
+        $this->instance->bodyObject();
 	}
 
 	public function testInput()

@@ -9,10 +9,16 @@ $request = Request::create();
 
 ## Manipulate Body
 
->  Getting all body values
+>  Getting all body values as array
 ```php
 $request->all();
 ```
+
+>  Getting all body values as object
+```php
+$request->bodyObject();
+```
+***Can retun stdClass, SimpleXMLElement or Exception***
 
 > Getting specific body value
 ```php

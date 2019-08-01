@@ -26,4 +26,15 @@ class ArrayUtil
 
 		return $array;
 	}
+
+    public static function converToObject(array $data)
+    {
+        $object = new \stdClass();
+
+        foreach ($data as $key => $value) {
+            $object->$key = $value;
+        }
+
+        return $object;
+	}
 }

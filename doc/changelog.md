@@ -1,5 +1,11 @@
 # Changelog
 
+### v1.7
+* Added class to get body from xml content type
+* Added class to get body from plain text content type
+* Added method to get body as object
+* Added more tests
+
 ### v1.6
 * Added method to check if value is empty
 

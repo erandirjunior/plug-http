@@ -9,6 +9,11 @@ var_dump($request->getUrl());
 
 echo "<hr />";
 echo "Body: <br />";
+var_dump($request->bodyObject());
+
+
+echo "<hr />";
+echo "Body: <br />";
 var_dump($request->all());
 
 echo "<hr />";
