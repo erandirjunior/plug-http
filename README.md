@@ -37,6 +37,11 @@ Just install with Composer
 
 #### Learn More
 
-* <a href="https://github.com/erandirjunior/plug-http/blob/master/doc/installation.md">Complete Documentation</a>
+* <a href="https://github.com/erandirjunior/plug-http/blob/master/doc/installation.md">Full Documentation</a>
 * <a href="https://github.com/erandirjunior/plug-http/blob/master/doc/changelog.md">Changelog</a>
 * <a href="https://github.com/erandirjunior/plug-http/tree/master/example">Example</a>
+
+***To run the examples, clone this project, open the terminal and paste the code below:***
+```bash
+docker-compose up
+```
