@@ -1,5 +1,8 @@
 # Changelog
 
+### v1.8
+* Fix bug in get body
+
 ### v1.7
 * Added class to get body from xml content type
 * Added class to get body from plain text content type
