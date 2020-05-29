@@ -4,28 +4,13 @@ namespace PlugHttp\Body;
 
 use PlugHttp\Utils\ContentHelper;
 
-class FormUrlEncoded implements Handler, Advancer//implements Body
+class FormUrlEncoded implements Handler, Advancer
 {
 	private $handler;
 
 	public function getBody($content)
 	{
-		$values = [];
-
-		if (!empty($content)) {
-			if (!strpos($content, '&')) {
-				$array = explode('=', $content);
-				return [$array[0] => $array[1]];
-			}
-
-			$contentArray = explode('&', $content);
-
-			foreach ($contentArray as $value) {
-				$aux = explode('=', $value);
-				$values[$aux[0]] = $aux[1];
-			}
-		}
-		return $values;
+        return $content;
 	}
 
 	public function next(Handler $handler)
