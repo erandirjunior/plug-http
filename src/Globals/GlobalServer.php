@@ -71,6 +71,10 @@ class GlobalServer
 
 	public function getContent()
 	{
+        if (!empty($_POST)) {
+            return $_POST;
+        }
+
 		return file_get_contents("php://input");
 	}
 }
