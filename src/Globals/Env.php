@@ -4,13 +4,13 @@ namespace PlugHttp\Globals;
 
 use PlugHttp\Utils\ArrayUtil;
 
-class GlobalEnv implements GlobalInterface, Adder
+class Env implements GlobalInterface
 {
-	private $env;
+	private array $env;
 
-	public function __construct($env)
+	public function __construct()
 	{
-		$this->env = $env;
+		$this->env = $_ENV;
 	}
 
 	public function get(string $key): string
@@ -38,29 +38,22 @@ class GlobalEnv implements GlobalInterface, Adder
 		return !empty($this->env[$value]);
 	}
 
-	public function add($key, $value)
+	public function add(string $key, $value): void
 	{
 		$this->env[$key] = $value;
-		$this->setGlobal($key, $value);
 
-		return $this;
+		$this->set($key, $value);
 	}
 
-	public function remove(string $key)
+	public function remove(string $key): void
 	{
 		unset($this->env[$key]);
-		$this->removeValueFromGlobal($key);
 
-		return $this;
-	}
-
-	public function removeValueFromGlobal($key)
-	{
 		unset($_ENV[$key]);
 	}
 
-	private function setGlobal($key, $value)
-	{
-		$_ENV[$key] = $value;
-	}
+    private function set(string $key, $value)
+    {
+        $_ENV[$key] = $value;
+    }
 }

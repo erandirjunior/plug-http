@@ -4,13 +4,13 @@ namespace PlugHttp\Globals;
 
 use PlugHttp\Utils\ArrayUtil;
 
-class GlobalFile implements GlobalInterface
+class File implements GlobalInterface
 {
-	private $file;
+	private array $file;
 
-	public function __construct(array $files)
+	public function __construct()
 	{
-		$this->file = $files;
+		$this->file = $_FILES;
 	}
 
 	public function get(string $key): string
@@ -38,16 +38,8 @@ class GlobalFile implements GlobalInterface
 		return !empty($this->file[$value]);
 	}
 
-	public function remove(string $key)
+	public function remove(string $key): void
 	{
 		unset($this->file[$key]);
-		$this->removeValueFromGlobal($key);
-
-		return $this;
-	}
-
-	public function removeValueFromGlobal($key)
-	{
-		unset($_FILES[$key]);
 	}
 }

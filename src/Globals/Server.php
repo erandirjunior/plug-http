@@ -2,13 +2,15 @@
 
 namespace PlugHttp\Globals;
 
-class GlobalServer
-{
-	private $server;
+use PlugHttp\Utils\ArrayUtil;
 
-	public function __construct($server)
+class Server implements GlobalInterface
+{
+	private array $server;
+
+	public function __construct()
 	{
-		$this->server = $server;
+		$this->server = $_SERVER;
 	}
 
 	private function getHeadersFromHeadersList()
@@ -77,4 +79,48 @@ class GlobalServer
 
 		return file_get_contents("php://input");
 	}
+
+    public function get(string $key): string
+    {
+        return $this->server[$key];
+    }
+
+    public function all(): array
+    {
+        return $this->server;
+    }
+
+    public function except(array $values): array
+    {
+        return ArrayUtil::except($this->server, $values);
+    }
+
+    public function only(array $values): array
+    {
+        return ArrayUtil::only($this->server, $values);
+    }
+
+    public function has(string $value): bool
+    {
+        return !empty($this->server[$value]);
+    }
+
+    public function add($key, $value): void
+    {
+        $this->server[$key] = $value;
+
+        $this->set($key, $value);
+    }
+
+    public function remove(string $key): void
+    {
+        unset($this->server[$key]);
+
+        unset($_SERVER[$key]);
+    }
+
+    private function set(string $key, $value)
+    {
+        $_SERVER[$key] = $value;
+    }
 }

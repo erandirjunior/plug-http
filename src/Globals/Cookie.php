@@ -4,13 +4,13 @@ namespace PlugHttp\Globals;
 
 use PlugHttp\Utils\ArrayUtil;
 
-class GlobalCookie implements GlobalInterface
+class Cookie implements GlobalInterface
 {
-	private $cookie;
+	private array $cookie;
 
-	public function __construct($cookies)
+	public function __construct()
 	{
-		$this->cookie = $cookies;
+		$this->cookie = $_COOKIE;
 	}
 
 	public function get(string $key): string
@@ -38,29 +38,21 @@ class GlobalCookie implements GlobalInterface
 		return !empty($this->cookie[$value]);
 	}
 
-	public function add(string $key, $value, $expire = 0, $path = "", $domain = "", $secure = false, $httponly = false)
+	public function add(string $key, $value, $expire = 0, $path = "", $domain = "", $secure = false, $httponly = false): void
 	{
 		$this->cookie[$key] = $value;
 
-		$this->setCookie($key, $value, $expire, $path, $domain, $secure, $httponly);
-
-		return $this;
+		$this->set($key, $value, $expire, $path, $domain, $secure, $httponly);
 	}
 
-	public function remove(string $key)
+	public function remove(string $key): void
 	{
 		unset($this->cookie[$key]);
-		$this->removeValueFromGlobal($key);
 
-		return $this;
+        unset($_COOKIE[$key]);
 	}
 
-	public function removeValueFromGlobal($key)
-	{
-		unset($_COOKIE[$key]);
-	}
-
-	private function setCookie(string $key, $value, $expire, $path, $domain, $secure, $httponly)
+	private function set(string $key, $value, $expire, $path, $domain, $secure, $httponly)
 	{
 		setcookie($key, $value, $expire, $path, $domain, $secure, $httponly);
 	}

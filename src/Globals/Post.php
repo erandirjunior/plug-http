@@ -1,14 +1,16 @@
 <?php
 
-namespace PlugHttp\Body;
+namespace PlugHttp\Globals;
+
+use PlugHttp\Body\Handler;
 
 class Post implements Handler
 {
 	private $post;
 
-	public function __construct($post)
+	public function __construct()
 	{
-		$this->post = $post;
+		$this->post = $_POST;
 	}
 
 	public function getBody()

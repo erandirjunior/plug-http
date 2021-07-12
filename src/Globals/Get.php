@@ -4,13 +4,13 @@ namespace PlugHttp\Globals;
 
 use PlugHttp\Utils\ArrayUtil;
 
-class GlobalGet implements GlobalInterface, Adder
+class Get implements GlobalInterface
 {
-	private $get;
+	private array $get;
 
-	public function __construct($get)
+	public function __construct()
 	{
-		$this->get = $get;
+		$this->get = $_GET;
 	}
 
 	public function get(string $key): string
@@ -38,29 +38,20 @@ class GlobalGet implements GlobalInterface, Adder
 		return !empty($this->get[$value]);
 	}
 
-	public function add($key, $value)
+	public function add($key, $value): void
 	{
 		$this->get[$key] = $value;
-		$this->setGlobal($key, $value);
 
-		return $this;
+		$this->set($key, $value);
 	}
 
-	public function remove(string $key)
+	public function remove(string $key): void
 	{
 		unset($this->get[$key]);
-		$this->removeValueFromGlobal($key);
-
-		return $this;
 	}
 
-	public function removeValueFromGlobal($key)
-	{
-		unset($_GET[$key]);
-	}
-
-	private function setGlobal($key, $value)
-	{
-		$_GET[$key] = $value;
-	}
+    private function set(string $key, $value)
+    {
+        $_GET[$key] = $value;
+    }
 }

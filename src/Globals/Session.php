@@ -4,13 +4,13 @@ namespace PlugHttp\Globals;
 
 use PlugHttp\Utils\ArrayUtil;
 
-class GlobalSession implements GlobalInterface, Adder
+class Session implements GlobalInterface
 {
-	private $session;
+	private array $session;
 
-	public function __construct($session)
+	public function __construct()
 	{
-		$this->session = $session;
+		$this->session = $_SESSION;
 	}
 
 	public function get(string $key): string
@@ -38,31 +38,22 @@ class GlobalSession implements GlobalInterface, Adder
 		return !empty($this->session[$value]);
 	}
 
-	public function add($key, $value)
+	public function add($key, $value): void
 	{
 		$this->session[$key] = $value;
-		$this->setGlobal($key, $value);
 
-		return $this;
+		$this->set($key, $value);
 	}
 
-	public function remove(string $key)
+	public function remove(string $key): void
 	{
 		unset($this->session[$key]);
-		$this->removeValueFromGlobal($key);
 
-		return $this;
+        unset($_SESSION[$key]);
 	}
 
-	public function removeValueFromGlobal($key)
-	{
-		if (!empty($_SESSION)) {
-			unset($_SESSION[$key]);
-		}
-	}
-
-	private function setGlobal($key, $value)
-	{
-		$_SESSION[$key] = $value;
-	}
+    private function set(string $key, $value)
+    {
+        $_SESSION[$key] = $value;
+    }
 }
