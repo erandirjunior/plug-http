@@ -4,7 +4,7 @@ namespace PlugHttp\Globals;
 
 use PlugHttp\Utils\ArrayUtil;
 
-class Session implements GlobalInterface
+class Session
 {
 	private array $session;
 
@@ -13,7 +13,7 @@ class Session implements GlobalInterface
 		$this->session = $_SESSION;
 	}
 
-	public function get(string $key): string
+	public function get(string $key)
 	{
 		return $this->session[$key];
 	}
@@ -23,19 +23,19 @@ class Session implements GlobalInterface
 		return $this->session;
 	}
 
-	public function except(array $values): array
+	public function except(array $keys): array
 	{
-		return ArrayUtil::except($this->session, $values);
+		return ArrayUtil::except($this->session, $keys);
 	}
 
-	public function only(array $values): array
+	public function only(array $keys): array
 	{
-		return ArrayUtil::only($this->session, $values);
+		return ArrayUtil::only($this->session, $keys);
 	}
 
-	public function has(string $value): bool
+	public function has(string $key): bool
 	{
-		return !empty($this->session[$value]);
+		return !empty($this->session[$key]);
 	}
 
 	public function add($key, $value): void

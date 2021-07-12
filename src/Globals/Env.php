@@ -4,7 +4,7 @@ namespace PlugHttp\Globals;
 
 use PlugHttp\Utils\ArrayUtil;
 
-class Env implements GlobalInterface
+class Env
 {
 	private array $env;
 
@@ -13,7 +13,7 @@ class Env implements GlobalInterface
 		$this->env = $_ENV;
 	}
 
-	public function get(string $key): string
+	public function get(string $key)
 	{
 		return $this->env[$key];
 	}
@@ -23,19 +23,19 @@ class Env implements GlobalInterface
 		return $this->env;
 	}
 
-	public function except(array $values): array
+	public function except(array $keys): array
 	{
-		return ArrayUtil::except($this->env, $values);
+		return ArrayUtil::except($this->env, $keys);
 	}
 
-	public function only(array $values): array
+	public function only(array $keys): array
 	{
-		return ArrayUtil::only($this->env, $values);
+		return ArrayUtil::only($this->env, $keys);
 	}
 
-	public function has(string $value): bool
+	public function has(string $key): bool
 	{
-		return !empty($this->env[$value]);
+		return !empty($this->env[$key]);
 	}
 
 	public function add(string $key, $value): void

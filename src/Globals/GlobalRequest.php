@@ -2,28 +2,29 @@
 
 namespace PlugHttp\Globals;
 
+use PlugHttp\Body\Content;
 use PlugHttp\Utils\ArrayUtil;
 
 class GlobalRequest
 {
-	private $get;
+	private Get $get;
 
-	private $body;
+	private array $body;
 
-	private $file;
+	private File $file;
 
-	private $server;
+	private Server $server;
 
 	public function __construct(
-		$body,
-		GlobalGet $get,
-		GlobalFile $file,
-		GlobalServer $server
+        Content $body,
+        Get $get,
+        File $file,
+        Server $server
 	)
 	{
-		$this->get 		= $get;
-		$this->server	= $server;
-		$this->body 	= $body;
+        $this->body 	= $body->getBodyRequest();
+        $this->get 		= $get;
+        $this->server	= $server;
 		$this->file 	= $file;
 	}
 
@@ -139,6 +140,11 @@ class GlobalRequest
 	public function files()
 	{
 		return $this->file->all();
+	}
+
+	public function file($key)
+	{
+		return $this->file->get($key);
 	}
 
 	public function headers()

@@ -4,7 +4,7 @@ namespace PlugHttp\Globals;
 
 use PlugHttp\Utils\ArrayUtil;
 
-class Server implements GlobalInterface
+class Server
 {
 	private array $server;
 
@@ -50,16 +50,6 @@ class Server implements GlobalInterface
 		return parse_url($this->server['REQUEST_METHOD'], PHP_URL_PATH);
 	}
 
-	public function headers()
-	{
-		return $this->server;
-	}
-
-	public function header(string $header)
-	{
-		return $this->server[$header];
-	}
-
 	public function getUrl()
 	{
 		$url = parse_url($this->server['REQUEST_URI'], PHP_URL_PATH);
@@ -80,7 +70,7 @@ class Server implements GlobalInterface
 		return file_get_contents("php://input");
 	}
 
-    public function get(string $key): string
+    public function get(string $key)
     {
         return $this->server[$key];
     }
@@ -90,19 +80,19 @@ class Server implements GlobalInterface
         return $this->server;
     }
 
-    public function except(array $values): array
+    public function except(array $keys): array
     {
-        return ArrayUtil::except($this->server, $values);
+        return ArrayUtil::except($this->server, $keys);
     }
 
-    public function only(array $values): array
+    public function only(array $keys): array
     {
-        return ArrayUtil::only($this->server, $values);
+        return ArrayUtil::only($this->server, $keys);
     }
 
-    public function has(string $value): bool
+    public function has(string $key): bool
     {
-        return !empty($this->server[$value]);
+        return !empty($this->server[$key]);
     }
 
     public function add($key, $value): void

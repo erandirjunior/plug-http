@@ -4,7 +4,7 @@ namespace PlugHttp\Globals;
 
 use PlugHttp\Utils\ArrayUtil;
 
-class Get implements GlobalInterface
+class Get
 {
 	private array $get;
 
@@ -13,7 +13,7 @@ class Get implements GlobalInterface
 		$this->get = $_GET;
 	}
 
-	public function get(string $key): string
+	public function get(string $key)
 	{
 		return $this->get[$key];
 	}
@@ -23,19 +23,19 @@ class Get implements GlobalInterface
 		return $this->get;
 	}
 
-	public function except(array $values): array
+	public function except(array $keys): array
 	{
-		return ArrayUtil::except($this->get, $values);
+		return ArrayUtil::except($this->get, $keys);
 	}
 
-	public function only(array $values): array
+	public function only(array $keys): array
 	{
-		return ArrayUtil::only($this->get, $values);
+		return ArrayUtil::only($this->get, $keys);
 	}
 
-	public function has(string $value): bool
+	public function has(string $key): bool
 	{
-		return !empty($this->get[$value]);
+		return !empty($this->get[$key]);
 	}
 
 	public function add($key, $value): void

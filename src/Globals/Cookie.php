@@ -4,7 +4,7 @@ namespace PlugHttp\Globals;
 
 use PlugHttp\Utils\ArrayUtil;
 
-class Cookie implements GlobalInterface
+class Cookie
 {
 	private array $cookie;
 
@@ -13,7 +13,7 @@ class Cookie implements GlobalInterface
 		$this->cookie = $_COOKIE;
 	}
 
-	public function get(string $key): string
+	public function get(string $key)
 	{
 		return $this->cookie[$key];
 	}
@@ -23,19 +23,19 @@ class Cookie implements GlobalInterface
 		return $this->cookie;
 	}
 
-	public function except(array $values): array
+	public function except(array $keys): array
 	{
-		return ArrayUtil::except($this->cookie, $values);
+		return ArrayUtil::except($this->cookie, $keys);
 	}
 
-	public function only(array $values): array
+	public function only(array $keys): array
 	{
-		return ArrayUtil::only($this->cookie, $values);
+		return ArrayUtil::only($this->cookie, $keys);
 	}
 
-	public function has(string $value): bool
+	public function has(string $key): bool
 	{
-		return !empty($this->cookie[$value]);
+		return !empty($this->cookie[$key]);
 	}
 
 	public function add(string $key, $value, $expire = 0, $path = "", $domain = "", $secure = false, $httponly = false): void

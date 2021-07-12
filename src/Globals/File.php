@@ -4,7 +4,7 @@ namespace PlugHttp\Globals;
 
 use PlugHttp\Utils\ArrayUtil;
 
-class File implements GlobalInterface
+class File
 {
 	private array $file;
 
@@ -13,7 +13,7 @@ class File implements GlobalInterface
 		$this->file = $_FILES;
 	}
 
-	public function get(string $key): string
+	public function get(string $key): array
 	{
 		return $this->file[$key];
 	}
@@ -23,19 +23,19 @@ class File implements GlobalInterface
 		return $this->file;
 	}
 
-	public function except(array $values): array
+	public function except(array $keys): array
 	{
-		return ArrayUtil::except($this->file, $values);
+		return ArrayUtil::except($this->file, $keys);
 	}
 
-	public function only(array $values): array
+	public function only(array $keys): array
 	{
-		return ArrayUtil::only($this->file, $values);
+		return ArrayUtil::only($this->file, $keys);
 	}
 
-	public function has(string $value): bool
+	public function has(string $key): bool
 	{
-		return !empty($this->file[$value]);
+		return !empty($this->file[$key]);
 	}
 
 	public function remove(string $key): void
