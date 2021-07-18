@@ -13,53 +13,52 @@ use PlugRoute\Test\Classes\ServerClassXml;
 
 class ContentTest extends TestCase
 {
-
 	public function testJson()
 	{
-		$instance = new ServerClassJson([]);
+		$instance = new ServerClassJson();
 		$content = new Content($instance);
-		self::assertEquals(['test' => 'myTest'], $content->getBody());
+		self::assertEquals(['test' => 'myTest'], $content->all());
 	}
 
 	public function testFormData()
 	{
-		$instance = new ServerClassFormData(['REQUEST_METHOD' => 'PUT']);
+		$instance = new ServerClassFormData();
 		$content = new Content($instance);
-		self::assertEquals(['test' => 'myTest'], $content->getBody());
+		self::assertEquals(['test' => 'myTest'], $content->all());
 	}
 
 	public function testPost()
 	{
-		$instance = new ServerClass([]);
+		$instance = new ServerClassFormData(['REQUEST_METHOD' => 'POST']);
 		$content = new Content($instance);
-		self::assertEquals(null, $content->getBody());
+		self::assertEquals(['test' => 'myTest'], $content->all());
 	}
 
 	public function testUrlEncoded()
 	{
-		$instance = new ServerClassUrlEncoded([]);
+		$instance = new ServerClassUrlEncoded();
 		$instance->flag(1);
 		$content = new Content($instance);
-		self::assertEquals(['test' => 'myTest'], $content->getBody());
+		self::assertEquals(['test' => 'myTest'], $content->all());
 		$instance->flag(2);
 		$content = new Content($instance);
-		self::assertEquals(['test' => 'myTest', 'lang' => 'PHP', 'dev' => 'Erandir'], $content->getBody());
+		self::assertEquals(['test' => 'myTest', 'lang' => 'PHP', 'dev' => 'Erandir'], $content->all());
 	}
 
-	public function testPlainText()
-	{
-		$instance = new ServerClassTextPlain([]);
-		$content = new Content($instance);
-		self::assertEquals('Text of example', $content->getBody());
-	}
+    public function testPlainText()
+    {
+        $instance = new ServerClassTextPlain();
+        $content = new Content($instance);
+        self::assertEquals('Text of example', $content->all());
+    }
 
-	public function testApplicationXml()
-	{
-		$instance = new ServerClassXml([]);
-		$instance->flag(1);
-		$content = new Content($instance);
+    public function testApplicationXml()
+    {
+        $instance = new ServerClassXml();
+        $instance->flag(1);
+        $content = new Content($instance);
 
-		$xml = '<?xml version="1.0" encoding="UTF-8"?>
+        $xml = '<?xml version="1.0" encoding="UTF-8"?>
                 <note>
                    <to>Tove</to>
                    <from>Jani</from>
@@ -67,14 +66,14 @@ class ContentTest extends TestCase
                    <body>Don\'t forget me this weekend!</body>
                 </note>';
 
-		$element = new \SimpleXMLElement($xml);
+        $element = new \SimpleXMLElement($xml);
 
-        self::assertEquals($element, $content->getBody());
-	}
+        self::assertEquals($element, $content->all());
+    }
 
-	public function testTextXml()
-	{
-        $instance = new ServerClassXml([]);
+    public function testTextXml()
+    {
+        $instance = new ServerClassXml();
         $instance->flag(2);
         $content = new Content($instance);
 
@@ -88,6 +87,6 @@ class ContentTest extends TestCase
 
         $element = new \SimpleXMLElement($xml);
 
-        self::assertEquals($element, $content->getBody());
-	}
+        self::assertEquals($element, $content->all());
+    }
 }

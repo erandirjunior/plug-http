@@ -2,9 +2,9 @@
 
 namespace PlugRoute\Test\Classes;
 
-use PlugHttp\Globals\GlobalServer;
+use PlugHttp\Globals\Server;
 
-class ServerClassXml extends GlobalServer
+class ServerClassXml extends Server
 {
 	private $flag;
 

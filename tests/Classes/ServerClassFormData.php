@@ -2,9 +2,9 @@
 
 namespace PlugRoute\Test\Classes;
 
-use PlugHttp\Globals\GlobalServer;
+use PlugHttp\Globals\Server;
 
-class ServerClassFormData extends GlobalServer
+class ServerClassFormData extends Server
 {
 	public function getContentType()
 	{

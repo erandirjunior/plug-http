@@ -6,21 +6,25 @@ use PHPUnit\Framework\TestCase;
 use PlugHttp\Globals\Server;
 use PlugRoute\Test\Classes\ServerClass;
 
-class ServerTest extends TestCase
+class ServerGlobalTest extends TestCase
 {
-	private $instance;
+	private Server $instance;
 
-	private $aux;
+	private array $data;
 
 	public function setUp()
 	{
-		$this->aux = [
+		$this->data = [
 			'CONTENT_TYPE' => 'json',
 			'REQUEST_METHOD' => 'POST',
 			'REQUEST_URI' => '/test',
 			'REDIRECT_BASE' => '/new-test'
 		];
-		$this->instance = new Server($this->aux);
+		$this->instance = new Server();
+
+        foreach ($this->data as $key => $value) {
+            $this->instance->add($key, $value);
+        }
 	}
 
 	public function testMethod()
@@ -42,12 +46,19 @@ class ServerTest extends TestCase
 
 	public function testHeaders()
 	{
-		self::assertEquals($this->aux, $this->instance->headers());
+	    $allValues = $this->instance->all();
+	    $actual = [
+            'CONTENT_TYPE' => $allValues['CONTENT_TYPE'],
+            'REQUEST_METHOD' => $allValues['REQUEST_METHOD'],
+            'REQUEST_URI' => $allValues['REQUEST_URI'],
+            'REDIRECT_BASE' => $allValues['REDIRECT_BASE']
+        ];
+		self::assertEquals($this->data, $actual);
 	}
 
 	public function testGetUrl()
 	{
-		self::assertEquals($this->aux['REQUEST_URI'], $this->instance->getUrl());
+		self::assertEquals($this->data['REQUEST_URI'], $this->instance->getUrl());
 	}
 
 	public function testContent()
@@ -57,6 +68,6 @@ class ServerTest extends TestCase
 
 	public function testGetHeader()
 	{
-		self::assertEquals('json', $this->instance->header('CONTENT_TYPE'));
+		self::assertEquals('json', $this->instance->get('CONTENT_TYPE'));
 	}
 }

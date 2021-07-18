@@ -3,57 +3,53 @@
 namespace PlugRoute\Test;
 
 use PHPUnit\Framework\TestCase;
-use PlugHttp\Globals\GlobalFile;
+use PlugHttp\Globals\File;
 
 class FileGlobalTest extends TestCase
 {
-	private $instance;
+	private File $instance;
+
+    private array $data;
 
 	public function setUp()
 	{
-		$array = [
+		$this->data = [
 			'name' => 'Erandir Junior',
 			'age' => 23,
 			'email' => 'aefs12junior@gmail.com'
 		];
-		$this->instance = new GlobalFile($array);
+		$this->instance = new \PlugRoute\Test\Mock\File();
 	}
+
+    public function testGet()
+    {
+        self::assertEquals($this->data, $this->instance->get('test'));
+    }
 
 	public function testAll()
 	{
-		$expected = ['name' => 'Erandir Junior', 'age' => 23, 'email' => 'aefs12junior@gmail.com'];
+		$expected = ['test' => $this->data];
 		self::assertEquals($expected, $this->instance->all());
 	}
 
-	public function testGet()
-	{
-		$expected = 'Erandir Junior';
-		self::assertEquals($expected, $this->instance->get('name'));
-	}
+    public function testExcept()
+    {
+        self::assertEquals([], $this->instance->except(['test']));
+    }
 
 	public function testOnly()
 	{
-		$expected = ['name' => 'Erandir Junior', 'age' => 23];
-		self::assertEquals($expected, $this->instance->only(['name', 'age']));
-	}
-
-	public function testExcept()
-	{
-		$expected = ['email' => 'aefs12junior@gmail.com'];
-		self::assertEquals($expected, $this->instance->except(['name', 'age']));
+        $expected = ['test' => $this->data];
+		self::assertEquals($expected, $this->instance->only(['test']));
 	}
 
 	public function testHas()
 	{
-		self::assertEquals(true, $this->instance->has('age'));
+		self::assertEquals(true, $this->instance->has('test'));
 	}
 
 	public function testRemove()
 	{
-		$expected = [
-			'name' => 'Erandir Junior',
-			'email' => 'aefs12junior@gmail.com'
-		];
-		self::assertEquals($expected, $this->instance->remove('age')->all());
+		self::assertEquals([], $this->instance->remove('test')->all());
 	}
 }

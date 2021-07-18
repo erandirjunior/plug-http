@@ -7,7 +7,7 @@ use PlugHttp\Response;
 
 class ResponseTest extends TestCase
 {
-	private $instance;
+	private Response $instance;
 
 	public function setUp()
 	{

@@ -4,8 +4,8 @@ namespace PlugRoute\Test;
 
 use PHPUnit\Framework\TestCase;
 use PlugHttp\Body\Content;
-use PlugHttp\Globals\GlobalGet;
-use PlugHttp\Globals\GlobalFile;
+use PlugHttp\Globals\Get;
+use PlugHttp\Globals\File;
 use PlugHttp\Globals\GlobalRequest;
 use PlugRoute\Test\Classes\ServerClassTextPlain;
 use PlugRoute\Test\Classes\ServerClassUrlEncoded;
@@ -17,7 +17,7 @@ class RequestGlobalTest extends TestCase
 
 	public function setUp()
 	{
-		$get = new GlobalGet(['query' => true, 'start' => 10, 'limit' => 30]);
+		$get = new Get(['query' => true, 'start' => 10, 'limit' => 30]);
 		$server = new ServerClassUrlEncoded(['REQUEST_METHOD' => 'POST', 'REQUEST_URI' => '/test']);
 		$server->flag(2);
 		$content = new Content($server);
@@ -30,8 +30,8 @@ class RequestGlobalTest extends TestCase
 				'size' => 1118907,
 			]
 		];
-		$file = new GlobalFile($fileArray);
-		$this->instance = new GlobalRequest($content->getBody(), $get, $file, $server);
+		$file = new File($fileArray);
+		$this->instance = new GlobalRequest($content->getBodyRequest(), $get, $file, $server);
 	}
 
 	public function testAll()
@@ -51,12 +51,12 @@ class RequestGlobalTest extends TestCase
 
 	public function testBodyObjectFromObject()
 	{
-        $get = new GlobalGet(['query' => true, 'start' => 10, 'limit' => 30]);
+        $get = new Get(['query' => true, 'start' => 10, 'limit' => 30]);
         $server = new ServerClassXml([]);
         $server->flag(1);
         $content = new Content($server);
-        $file = new GlobalFile([]);
-        $this->instance = new GlobalRequest($content->getBody(), $get, $file, $server);
+        $file = new File([]);
+        $this->instance = new GlobalRequest($content->getBodyRequest(), $get, $file, $server);
 
         $xml = '<?xml version="1.0" encoding="UTF-8"?>
                 <note>
@@ -73,11 +73,11 @@ class RequestGlobalTest extends TestCase
 
 	public function testBodyObjectError()
 	{
-        $get = new GlobalGet(['query' => true, 'start' => 10, 'limit' => 30]);
+        $get = new Get(['query' => true, 'start' => 10, 'limit' => 30]);
         $server = new ServerClassTextPlain([]);
         $content = new Content($server);
-        $file = new GlobalFile([]);
-        $this->instance = new GlobalRequest($content->getBody(), $get, $file, $server);
+        $file = new File([]);
+        $this->instance = new GlobalRequest($content->getBodyRequest(), $get, $file, $server);
         $this->expectException(\Exception::class);
 
         $this->instance->bodyObject();

@@ -2,9 +2,9 @@
 
 namespace PlugRoute\Test\Classes;
 
-use PlugHttp\Globals\GlobalServer;
+use PlugHttp\Globals\Server;
 
-class ServerClassUrlEncoded extends GlobalServer
+class ServerClassUrlEncoded extends Server
 {
 	private $flag;
 

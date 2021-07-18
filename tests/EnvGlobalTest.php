@@ -3,21 +3,34 @@
 namespace PlugRoute\Test;
 
 use PHPUnit\Framework\TestCase;
-use PlugHttp\Globals\GlobalEnv;
+use PlugHttp\Globals\Env;
 
 class EnvGlobalTest extends TestCase
 {
-	private $instance;
+	private Env $instance;
+
+    private array $data;
 
 	public function setUp()
 	{
-		$array = [
+		$this->data = [
 			'name' => 'Erandir Junior',
 			'age' => 23,
 			'email' => 'aefs12junior@gmail.com'
 		];
-		$this->instance = new GlobalEnv($array);
+
+		$this->instance = new Env();
+
+		foreach ($this->data as $key => $value) {
+            $this->instance->add($key, $value);
+        }
 	}
+
+    public function testGet()
+    {
+        $expected = 'Erandir Junior';
+        self::assertEquals($expected, $this->instance->get('name'));
+    }
 
 	public function testAll()
 	{
@@ -25,11 +38,11 @@ class EnvGlobalTest extends TestCase
 		self::assertEquals($expected, $this->instance->all());
 	}
 
-	public function testGet()
-	{
-		$expected = 'Erandir Junior';
-		self::assertEquals($expected, $this->instance->get('name'));
-	}
+    public function testExcept()
+    {
+        $expected = ['email' => 'aefs12junior@gmail.com'];
+        self::assertEquals($expected, $this->instance->except(['name', 'age']));
+    }
 
 	public function testOnly()
 	{
@@ -37,27 +50,9 @@ class EnvGlobalTest extends TestCase
 		self::assertEquals($expected, $this->instance->only(['name', 'age']));
 	}
 
-	public function testExcept()
-	{
-		$expected = ['email' => 'aefs12junior@gmail.com'];
-		self::assertEquals($expected, $this->instance->except(['name', 'age']));
-	}
-
 	public function testHas()
 	{
 		self::assertEquals(true, $this->instance->has('age'));
-	}
-
-	public function testAdd()
-	{
-		$this->instance->add('key', 'value');
-		$expected = [
-			'name' => 'Erandir Junior',
-			'age' => 23,
-			'email' => 'aefs12junior@gmail.com',
-			'key' => 'value'
-		];
-		self::assertEquals($expected, $this->instance->all());
 	}
 
 	public function testRemove()

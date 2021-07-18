@@ -3,21 +3,34 @@
 namespace PlugRoute\Test;
 
 use PHPUnit\Framework\TestCase;
-use PlugHttp\Globals\GlobalSession;
+use PlugHttp\Globals\Session;
 
 class SessionGlobalTest extends TestCase
 {
-	private $instance;
+	private Session $instance;
+
+    private array $data;
 
 	public function setUp()
 	{
-		$array = [
+		$this->data = [
 			'name' => 'Erandir Junior',
 			'age' => 23,
 			'email' => 'aefs12junior@gmail.com'
 		];
-		$this->instance = new GlobalSession($array);
+
+		$this->instance = new \PlugRoute\Test\Mock\Session();
+
+        foreach ($this->data as $key => $value) {
+            $this->instance->add($key, $value);
+        }
 	}
+
+    public function testGet()
+    {
+        $expected = 'Erandir Junior';
+        self::assertEquals($expected, $this->instance->get('name'));
+    }
 
 	public function testAll()
 	{
@@ -25,23 +38,17 @@ class SessionGlobalTest extends TestCase
 		self::assertEquals($expected, $this->instance->all());
 	}
 
-	public function testGet()
-	{
-		$expected = 'Erandir Junior';
-		self::assertEquals($expected, $this->instance->get('name'));
-	}
-
-	public function testOnly()
-	{
-		$expected = ['name' => 'Erandir Junior', 'age' => 23];
-		self::assertEquals($expected, $this->instance->only(['name', 'age']));
-	}
-
 	public function testExcept()
 	{
 		$expected = ['email' => 'aefs12junior@gmail.com'];
 		self::assertEquals($expected, $this->instance->except(['name', 'age']));
 	}
+
+    public function testOnly()
+    {
+        $expected = ['name' => 'Erandir Junior', 'age' => 23];
+        self::assertEquals($expected, $this->instance->only(['name', 'age']));
+    }
 
 	public function testHas()
 	{
@@ -56,16 +63,5 @@ class SessionGlobalTest extends TestCase
 			'email' => 'aefs12junior@gmail.com'
 		];
 		self::assertEquals($expected, $this->instance->remove('age')->all());
-	}
-
-	public function testAdd()
-	{
-		$expected = [
-			'name' => 'Erandir Junior',
-			'age' => 23,
-			'email' => 'aefs12junior@gmail.com',
-			'sex'	=> 'm'
-		];
-		self::assertEquals($expected, $this->instance->add('sex', 'm')->all());
 	}
 }
