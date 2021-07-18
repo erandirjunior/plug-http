@@ -2,12 +2,12 @@
 
 namespace PlugHttp\Body;
 
-use PlugHttp\Globals\GlobalServer;
+use PlugHttp\Globals\Server;
 use PlugHttp\Utils\ContentHelper;
 
 class FormData implements Handler, Advancer
 {
-	private $handler;
+	private Handler $handler;
 
 	public function getBody($content)
 	{
@@ -54,7 +54,7 @@ class FormData implements Handler, Advancer
 		$this->handler = $handler;
 	}
 
-	private function checkIsFormData(GlobalServer $server)
+	private function checkIsFormData(Server $server)
 	{
 		return ContentHelper::contentIs($server, 'form-data') && $server->method() !== 'POST';
 	}

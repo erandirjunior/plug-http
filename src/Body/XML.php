@@ -6,7 +6,7 @@ use PlugHttp\Utils\ContentHelper;
 
 class XML implements Handler, Advancer
 {
-    private $handler;
+    private Handler $handler;
 
     public function getBody($content)
     {

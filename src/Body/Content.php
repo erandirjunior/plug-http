@@ -2,31 +2,34 @@
 
 namespace PlugHttp\Body;
 
-use PlugHttp\Factory\FormDataFactory;
-use PlugHttp\Factory\FormUrlEncodedFactory;
-use PlugHttp\Factory\JsonFactory;
-use PlugHttp\Factory\PostFactory;
-use PlugHttp\Factory\TextPlainFactory;
-use PlugHttp\Factory\XmlFactory;
-use PlugHttp\Globals\GlobalServer;
+use PlugHttp\Globals\Post;
+use PlugHttp\Globals\Server;
+use PlugHttp\Utils\ArrayUtil;
 
 class Content
 {
-	private $server;
+	private Server $server;
 
-	public function __construct(GlobalServer $server)
+    /**
+     * @var string|array
+     */
+	private $body;
+
+	public function __construct(Server $server)
 	{
 		$this->server = $server;
+		$this->getBodyRequest();
+		$this->createProperty();
 	}
 
-	public function getBody()
+	private function getBodyRequest()
 	{
-		$json 		= JsonFactory::create();
-		$post 		= PostFactory::create();
-		$formData 	= FormDataFactory::create();
-		$urlEncode 	= FormUrlEncodedFactory::create();
-		$textPlain  = TextPlainFactory::create();
-		$xml        = XmlFactory::create();
+        $xml = new XML();
+        $json = new Json();
+        $post = new Post();
+        $formData = new FormData();
+        $urlEncode = new FormUrlEncoded();
+        $textPlain = new TextPlain();
 
 		$json->next($formData);
 		$formData->next($urlEncode);
@@ -34,6 +37,67 @@ class Content
 		$textPlain->next($xml);
 		$xml->next($post);
 
-		return $json->handle($this->server);
+		$this->body = $json->handle($this->server);
 	}
+
+	private function createProperty()
+	{
+	    if (is_array($this->body)) {
+            foreach ($this->body as $key => $value) {
+                $this->__set($key, $value);
+            }
+        }
+	}
+
+    public function add(string $key, $value): void
+    {
+        $this->body[$key] = $value;
+
+        $this->__set($key, $value);
+    }
+
+    public function remove(string $key): void
+    {
+        unset($this->body[$key]);
+
+        unset($this->$key);
+    }
+
+    public function get(string $key)
+    {
+        return $this->body[$key];
+    }
+
+    /**
+     * @return array|string
+     */
+    public function all()
+    {
+        return $this->body;
+    }
+
+    public function __set($name, $value)
+    {
+        $this->$name = $value;
+    }
+
+    public function __get($name)
+    {
+        $this->$name;
+    }
+
+    public function except(array $keys): array
+    {
+        return ArrayUtil::except($this->body, $keys);
+    }
+
+    public function only(array $keys): array
+    {
+        return ArrayUtil::only($this->body, $keys);
+    }
+
+    public function has(string $key): bool
+    {
+        return !empty($this->body[$key]);
+    }
 }
