@@ -3,51 +3,74 @@
 namespace PlugRoute\Test;
 
 use PHPUnit\Framework\TestCase;
-use PlugHttp\Globals\GlobalCookie;
+use PlugHttp\Globals\Cookie;
 
 class CookieGlobalTest extends TestCase
 {
-	private $instance;
+	private Cookie $instance;
+
+	private array $data;
 
 	public function setUp()
 	{
-		$array = [
+		$this->data = [
 			'name' => 'Erandir Junior',
 			'age' => 23,
 			'email' => 'aefs12junior@gmail.com'
 		];
-		$this->instance = new GlobalCookie($array);
+		$this->instance = new Cookie();
+		foreach ($this->data as $key => $value) {
+            $this->instance->add($key, $value);
+        }
 	}
 
-	public function testAll()
-	{
-		$expected = ['name' => 'Erandir Junior', 'age' => 23, 'email' => 'aefs12junior@gmail.com'];
-		self::assertEquals($expected, $this->instance->all());
-	}
-
+    /**
+     * @runInSeparateProcess
+     */
 	public function testGet()
 	{
-		$expected = 'Erandir Junior';
+	    $expected = 'Erandir Junior';
+
 		self::assertEquals($expected, $this->instance->get('name'));
 	}
 
+    /**
+     * @runInSeparateProcess
+     */
+    public function testAll()
+    {
+      self::assertEquals($this->data, $this->instance->all());
+    }
+
+    /**
+     * @runInSeparateProcess
+     */
+    public function testExcept()
+    {
+        $expected = ['email' => 'aefs12junior@gmail.com'];
+        self::assertEquals($expected, $this->instance->except(['name', 'age']));
+    }
+
+    /**
+     * @runInSeparateProcess
+     */
 	public function testOnly()
 	{
 		$expected = ['name' => 'Erandir Junior', 'age' => 23];
 		self::assertEquals($expected, $this->instance->only(['name', 'age']));
 	}
 
-	public function testExcept()
-	{
-		$expected = ['email' => 'aefs12junior@gmail.com'];
-		self::assertEquals($expected, $this->instance->except(['name', 'age']));
-	}
-
+    /**
+     * @runInSeparateProcess
+     */
 	public function testHas()
 	{
 		self::assertEquals(true, $this->instance->has('age'));
 	}
 
+    /**
+     * @runInSeparateProcess
+     */
 	public function testRemove()
 	{
 		$expected = [
@@ -55,20 +78,5 @@ class CookieGlobalTest extends TestCase
 			'email' => 'aefs12junior@gmail.com'
 		];
 		self::assertEquals($expected, $this->instance->remove('age')->all());
-	}
-
-	/**
-	 * @testQueryExcept
-	 * @runInSeparateProcess
-	 **/
-	public function testAdd()
-	{
-		$expected = [
-			'name' => 'Erandir Junior',
-			'age' => 23,
-			'email' => 'aefs12junior@gmail.com',
-			'sex'	=> 'm'
-		];
-		self::assertEquals($expected, $this->instance->add('sex', 'm')->all());
 	}
 }

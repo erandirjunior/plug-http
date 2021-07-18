@@ -3,7 +3,7 @@
 namespace PlugRoute\Test;
 
 use PHPUnit\Framework\TestCase;
-use PlugHttp\Globals\GlobalServer;
+use PlugHttp\Globals\Server;
 use PlugRoute\Test\Classes\ServerClass;
 
 class ServerTest extends TestCase
@@ -20,7 +20,7 @@ class ServerTest extends TestCase
 			'REQUEST_URI' => '/test',
 			'REDIRECT_BASE' => '/new-test'
 		];
-		$this->instance = new GlobalServer($this->aux);
+		$this->instance = new Server($this->aux);
 	}
 
 	public function testMethod()
