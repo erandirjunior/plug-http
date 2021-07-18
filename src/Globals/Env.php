@@ -45,11 +45,13 @@ class Env
 		$this->set($key, $value);
 	}
 
-	public function remove(string $key): void
+	public function remove(string $key): Env
 	{
 		unset($this->env[$key]);
 
 		unset($_ENV[$key]);
+
+		return $this;
 	}
 
     private function set(string $key, $value)

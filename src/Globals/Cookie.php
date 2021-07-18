@@ -45,15 +45,17 @@ class Cookie
 		$this->set($key, $value, $expire, $path, $domain, $secure, $httponly);
 	}
 
-	public function remove(string $key): void
+	public function remove(string $key): Cookie
 	{
 		unset($this->cookie[$key]);
 
         unset($_COOKIE[$key]);
+
+        return $this;
 	}
 
 	private function set(string $key, $value, $expire, $path, $domain, $secure, $httponly)
 	{
-		setcookie($key, $value, $expire, $path, $domain, $secure, $httponly);
+		return setcookie($key, $value, $expire, $path, $domain, $secure, $httponly);
 	}
 }

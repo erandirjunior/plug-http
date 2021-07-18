@@ -10,7 +10,7 @@ class Session
 
 	public function __construct()
 	{
-		$this->session = $_SESSION;
+		$this->session = $_SESSION ?? [];
 	}
 
 	public function get(string $key)
@@ -45,11 +45,13 @@ class Session
 		$this->set($key, $value);
 	}
 
-	public function remove(string $key): void
+	public function remove(string $key): Session
 	{
 		unset($this->session[$key]);
 
         unset($_SESSION[$key]);
+
+        return $this;
 	}
 
     private function set(string $key, $value)

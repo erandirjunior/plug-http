@@ -38,8 +38,10 @@ class File
 		return !empty($this->file[$key]);
 	}
 
-	public function remove(string $key): void
+	public function remove(string $key): File
 	{
 		unset($this->file[$key]);
+
+		return $this;
 	}
 }
