@@ -2,39 +2,87 @@
 
 namespace PlugHttp;
 
+/**
+ * Class Response
+ * @package PlugHttp
+ */
 class Response
 {
-	private $headers = [];
+    /**
+     * @var array
+     */
+    private array $headers;
 
-	private $statusCode = 200;
+    /**
+     * @var int
+     */
+    private int $statusCode;
 
-	public function setHeaders(array $header)
+    /**
+     * Response constructor.
+     */
+    public function __construct()
+    {
+        $this->headers = [];
+        $this->statusCode = 200;
+    }
+
+    /**
+     * @param array $headers
+     * @return $this
+     */
+    public function addHeaders(array $headers): Response
 	{
-		foreach ($header as $v) {
+		foreach ($headers as $v) {
 			$this->headers[] = $v;
 		}
 
 		return $this;
 	}
 
-	public function getHeaders(): array
+    /**
+     * @param string $header
+     * @param mixed $value
+     * @return $this
+     */
+    public function addHeader(string $header, mixed $value): Response
+	{
+        $this->headers[$header] = $value;
+
+		return $this;
+	}
+
+    /**
+     * @return array
+     */
+    public function getHeaders(): array
 	{
 		return $this->headers;
 	}
 
-	public function setStatusCode(int $statusCode)
+    /**
+     * @param int $statusCode
+     * @return $this
+     */
+    public function setStatusCode(int $statusCode): Response
 	{
 		$this->statusCode = $statusCode;
 
 		return $this;
 	}
 
-	public function getStatusCode(): int
+    /**
+     * @return int
+     */
+    public function getStatusCode(): int
 	{
 		return $this->statusCode;
 	}
 
-	public function response()
+    /**
+     * @return $this
+     */
+    public function response(): Response
 	{
 		foreach ($this->headers as $k => $v) {
 			header("{$v}");
@@ -45,7 +93,11 @@ class Response
 		return $this;
 	}
 
-	public function json(array $data)
+    /**
+     * @param array $data
+     * @return false|string
+     */
+    public function json(array $data)
 	{
 		header("Content-type: application/json");
 
