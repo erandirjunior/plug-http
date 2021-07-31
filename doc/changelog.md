@@ -1,5 +1,12 @@
 # Changelog
 
+### v1.9
+* End support to PHP < 7.4
+* Added dynamic properties in Content class
+* New methods in class Request
+* Added new methods in Globals classes
+* Removing factories
+
 ### v1.8
 * Fix bug in get body
 
