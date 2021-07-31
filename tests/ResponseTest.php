@@ -28,7 +28,7 @@ class ResponseTest extends TestCase
 			'Pragma: no-cache',
 		];
 
-		$this->instance->setHeaders($headers);
+		$this->instance->addHeaders($headers);
 
 		self::assertEquals($headers, $this->instance->getHeaders());
 	}
@@ -45,7 +45,7 @@ class ResponseTest extends TestCase
 		];
 
 		$response = $this->instance
-		->setHeaders($headers)
+		->addHeaders($headers)
 		->response()
 		->json(['test' => 'myTest']);
 
