@@ -10,7 +10,7 @@ class TextPlain implements Handler, Advancer
 
     public function getBody($content)
     {
-        return $content;
+        return [$content];
     }
 
     public function next(Handler $handler)
