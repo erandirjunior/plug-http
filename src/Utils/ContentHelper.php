@@ -2,11 +2,11 @@
 
 namespace PlugHttp\Utils;
 
-use PlugHttp\Globals\GlobalServer;
+use PlugHttp\Globals\Server;
 
 class ContentHelper
 {
-	public static function contentIs(GlobalServer $server, $type)
+	public static function contentIs(Server $server, $type): bool
 	{
 		return strpos($server->getContentType(), $type) !== false;
 	}

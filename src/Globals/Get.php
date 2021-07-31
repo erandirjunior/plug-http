@@ -45,9 +45,13 @@ class Get
 		$this->set($key, $value);
 	}
 
-	public function remove(string $key): void
+	public function remove(string $key): Get
 	{
 		unset($this->get[$key]);
+
+		unset($_GET[$key]);
+
+		return $this;
 	}
 
     private function set(string $key, $value)

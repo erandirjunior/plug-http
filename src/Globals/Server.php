@@ -40,17 +40,17 @@ class Server
 		return $this->server['CONTENT_TYPE'] ?? $contentType;
 	}
 
-	public function isMethod(string $method)
+	public function isMethod(string $method): bool
 	{
 		return $this->method() === $method;
 	}
 
-	public function method()
+	public function method(): string
 	{
 		return parse_url($this->server['REQUEST_METHOD'], PHP_URL_PATH);
 	}
 
-	public function getUrl()
+	public function getUrl(): string
 	{
 		$url = parse_url($this->server['REQUEST_URI'], PHP_URL_PATH);
 
@@ -102,11 +102,13 @@ class Server
         $this->set($key, $value);
     }
 
-    public function remove(string $key): void
+    public function remove(string $key): Server
     {
         unset($this->server[$key]);
 
         unset($_SERVER[$key]);
+
+        return $this;
     }
 
     private function set(string $key, $value)

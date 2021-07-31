@@ -42,6 +42,8 @@ class File
 	{
 		unset($this->file[$key]);
 
+		unset($_FILES[$key]);
+
 		return $this;
 	}
 }

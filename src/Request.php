@@ -69,16 +69,16 @@ class Request
      * @param string $key
      * @param $value
      */
-    public function addCookie(string $key, $value): void
+    public function addCookie(string $key, $value, $expire = 0, $path = "", $domain = "", $secure = false, $httponly = false): void
     {
-        $this->cookie->add($key, $value);
+        $this->cookie->add($key, $value, $expire, $path, $domain, $secure, $httponly);
     }
 
     /**
      * @param string|null $key
      * @return array|mixed
      */
-    public function cookie(?string $key = null)
+    public function cookies(?string $key = null)
     {
         if ($key) {
             return $this->cookie->get($key);
@@ -288,22 +288,18 @@ class Request
      * @param string $key
      * @param $value
      */
-    public function addServer(string $key, $value): void
+    public function addHeader(string $key, $value): void
     {
         $this->server->add($key, $value);
     }
 
     /**
-     * @param string|null $key
+     * @param string $key
      * @return array|mixed
      */
-    public function header(?string $key = null)
+    public function header(string $key)
     {
-        if ($key) {
-            return $this->server->get($key);
-        }
-
-        return $this->server->all();
+        return $this->server->get($key);
     }
 
     /**
@@ -327,7 +323,7 @@ class Request
      * @param array $values
      * @return array
      */
-    public function exceptHeader(array $values): array
+    public function exceptHeaders(array $values): array
     {
         return $this->server->except($values);
     }
@@ -336,23 +332,23 @@ class Request
      * @param array $values
      * @return array
      */
-    public function onlyHeader(array $values): array
+    public function onlyHeaders(array $values): array
     {
         return $this->server->only($values);
     }
 
     /**
-     * @return array|false|int|string|null
+     * @return string
      */
-    public function method()
+    public function method(): string
     {
         return $this->server->method();
     }
 
     /**
-     * @return array|false|int|string|string[]|null
+     * @return string
      */
-    public function getUrl()
+    public function getUrl(): string
     {
         return $this->server->getUrl();
     }
@@ -361,7 +357,7 @@ class Request
      * @param string $method
      * @return bool
      */
-    public function isMethod(string $method)
+    public function isMethod(string $method): bool
     {
         return $this->method() === strtoupper($method);
     }
@@ -369,9 +365,9 @@ class Request
     /**
      * @return array
      */
-    public function headers()
+    public function headers(): array
     {
-        return $this->server->headers();
+        return $this->server->all();
     }
 
     /**
@@ -466,7 +462,7 @@ class Request
      * @param string $key
      * @return bool
      */
-    public function has(string $key)
+    public function has(string $key): bool
     {
         return $this->content->has($key);
     }
@@ -474,7 +470,7 @@ class Request
     /**
      * @param string $key
      */
-    public function remove(string $key)
+    public function remove(string $key): void
     {
         $this->content->remove($key);
     }
@@ -491,7 +487,7 @@ class Request
     /**
      * @return array
      */
-    public function all()
+    public function all(): array
     {
         return $this->content->all();
     }
