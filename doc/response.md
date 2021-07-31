@@ -19,9 +19,14 @@ $response->setStatusCode($statusCode);
 $response->getStatusCode($key);
 ```
 
-> Setting headers
+> Setting several headers
 ```php
-$response->setHeaders(['Content-Type: application/json']);
+$response->addHeaders(['Content-Type: application/json']);
+```
+
+> Setting one header
+```php
+$response->addHeader('Content-Type', 'application/json');
 ```
 
 > Getting headers
@@ -42,7 +47,7 @@ echo $response->json(['name' => 'Erandir']);
 > Headers with json
 ```php
 echo $response
-    ->setHeaders(['Content-Type: application/json'])
+    ->addHeader('Content-Type', 'application/json')
     ->response()
     ->json(['name' => 'Erandir']);
 ```

@@ -2,9 +2,9 @@
 
 ## Initialize
 ```php
-use \PlugHttp\File;
+use \PlugHttp\Globals\File;
 
-$file = File::create();
+$file = new File();
 ```
 
 ## Methods
@@ -16,7 +16,7 @@ $file->all();
 
 > Getting specific file
 ```php
-$file->input($key);
+$file->get($key);
 ```
 
 > Getting all files except

@@ -2,9 +2,9 @@
 
 ## Initialize
 ```php
-use \PlugHttp\Cookie;
+use \PlugHttp\Globals\Cookie;
 
-$cookie = Cookie::create();
+$cookie = new Cookie();
 ```
 
 ## Methods
@@ -16,7 +16,7 @@ $cookie->all();
 
 > Getting specific value
 ```php
-$cookie->input($key);
+$cookie->get($key);
 ```
 
 > Getting all values except
@@ -38,7 +38,7 @@ $cookie->remove($key);
 ```php
 $cookie->add($key, $value, $expire, $path, $domain, $secure, $httponly);
 ```
-***$expire, $path, $domain, $secure and $httponly are optional***
+***$expire, $path, $domain, $secure and $httponly are optionals***
 
 > Check if has value
 ```php

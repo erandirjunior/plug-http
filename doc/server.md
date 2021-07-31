@@ -2,36 +2,31 @@
 
 ## Initialize
 ```php
-use \PlugHttp\Server;
+use \PlugHttp\Globals\Server;
 
-$server = Server::create();
+$server = new Server();
 ```
 
 ## Methods
 
->  Getting method
+>  Getting request method
 ```php
 $server->method();
 ```
 
-> Check if method it is
-```php
-$server->isMethod($method);
-```
-
-> Check if method it is
+> Checks whether the request method is the same as the specified request method
 ```php
 $server->isMethod($method);
 ```
 
 > Getting all headers
 ```php
-$server->headers();
+$server->all();
 ```
 
-> Getting specific headers
+> Getting specific header
 ```php
-$server->header('Content-Type');
+$server->get('Content-Type');
 ```
 
 > Getting url
@@ -44,9 +39,34 @@ $server->getUrl();
 $server->getContentType();
 ```
 
-> Getting content from php://input
+> Getting pure content sent
 ```php
 $server->getContent();
+```
+
+> Getting all values except
+```php
+$server->except([$keyOne, $keyTwo]);
+```
+
+> Getting only values
+```php
+$server->only([$keyOne, $keyTwo]);
+```
+
+> Add value
+```php
+$server->add($key, $value);
+```
+
+> Check if has value
+```php
+$server->has($key);
+```
+
+> Remove value
+```php
+$server->remove($key);
 ```
 
 ## See too

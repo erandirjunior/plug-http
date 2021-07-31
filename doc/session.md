@@ -2,9 +2,9 @@
 
 ## Initialize
 ```php
-use \PlugHttp\Session;
+use \PlugHttp\Globals\Session;
 
-$session = Session::create();
+$session = new Session();
 ```
 
 ## Methods
@@ -16,7 +16,7 @@ $session->all();
 
 > Getting specific value
 ```php
-$session->input($key);
+$session->get($key);
 ```
 
 > Getting all values except

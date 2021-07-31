@@ -1,7 +1,7 @@
 # Installing the PlugHttp library
 
 ## Requirements
-* PHP 7.0 >=
+* PHP 7.4 >=
 * Composer 
 
 ## Install

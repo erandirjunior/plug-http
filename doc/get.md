@@ -2,9 +2,9 @@
 
 ## Initialize
 ```php
-use \PlugHttp\Get;
+use \PlugHttp\Globals\Get;
 
-$get = Get::create();
+$get = new Get();
 ```
 
 ## Methods

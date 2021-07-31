@@ -2,9 +2,9 @@
 
 ## Initialize
 ```php
-use \PlugHttp\Env;
+use \PlugHttp\Globals\Env;
 
-$env = Env::create();
+$env = new Env();
 ```
 
 ## Methods
@@ -21,27 +21,27 @@ $env->get($key);
 
 > Getting all values except
 ```php
-env->except([$keyOne, $keyTwo]);
+$env->except([$keyOne, $keyTwo]);
 ```
 
 > Getting only values
 ```php
-env->only([$keyOne, $keyTwo]);
+$env->only([$keyOne, $keyTwo]);
 ```
 
 > Add value
 ```php
-env->add($key, $value);
+$env->add($key, $value);
 ```
 
 > Remove value
 ```php
-env->remove($key);
+$env->remove($key);
 ```
 
 > Check if has value
 ```php
-env->has($key);
+$env->has($key);
 ```
 
 ## See too

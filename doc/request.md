@@ -4,7 +4,7 @@
 ```php
 use \PlugHttp\Request;
 
-$request = Request::create();
+$request = new Request();
 ```
 
 ## Manipulate Body
@@ -14,15 +14,16 @@ $request = Request::create();
 $request->all();
 ```
 
->  Getting all body values as object
+>  Getting specific value from body as class property
 ```php
-$request->bodyObject();
+$request->username;
+$request->name;
+$request->email;
 ```
-***Can retun stdClass, SimpleXMLElement or Exception***
 
 > Getting specific body value
 ```php
-$request->input($key);
+$request->get($key);
 ```
 
 > Getting all body values except
@@ -35,12 +36,12 @@ $request->except([$keyOne, $keyTwo]);
 $request->only([$keyOne, $keyTwo]);
 ```
 
-> Add value
+> Add value in body
 ```php
 $request->add($key, $value);
 ```
 
-> Remove value
+> Remove body value
 ```php
 $request->remove($key);
 ```
@@ -52,22 +53,22 @@ $request->has($key);
 
 ## Manipulate Get
 
->  Getting all query values
+>  Getting all query string values
 ```php
 $request->query();
 ```
 
-> Getting specific query value
+> Getting specific query string value
 ```php
-$request->queryWith($key);
+$request->query($key);
 ```
 
-> Getting all query values except
+> Getting except query string values
 ```php
 $request->queryExcept([$keyOne, $keyTwo]);
 ```
 
-> Getting only query values
+> Getting only query string values
 ```php
 $request->queryOnly([$keyOne, $keyTwo]);
 ```
@@ -82,11 +83,41 @@ $request->addQuery($key, $value);
 $request->removeQuery($key);
 ```
 
+> Check if has value in query string
+```php
+$request->hasQuery($key);
+```
+
 ## Manipulate File
 
-> Getting files
+> Getting all files
 ```php
-$request->files();
+$request->file();
+```
+
+> Getting specific file
+```php
+$request->file($key);
+```
+
+> Check if specific file was sent
+```php
+$request->hasFile($key);
+```
+
+> Remove specific file
+```php
+$request->removeFile($key);
+```
+
+> Getting only files
+```php
+$request->onlyFile([$key]);
+```
+
+> Getting except files
+```php
+$request->exceptFile([$key]);
 ```
 
 ## Manipulate Server
@@ -96,7 +127,7 @@ $request->files();
 $request->method();
 ```
 
-> Check method
+> Check request method
 ```php
 $request->isMethod($method);
 ```
@@ -106,7 +137,7 @@ $request->isMethod($method);
 $request->headers();
 ```
 
-> Getting specific header value
+> Getting specific header
 ```php
 $request->header('Content-Type');
 ```
@@ -121,6 +152,143 @@ $request->getUrl();
 $request->redirect($url, $code);
 ```
 **$code is optional**
+
+> Getting only headers
+```php
+$request->onlyHeaders([$key]);
+```
+
+> Getting except headers
+```php
+$request->exceptHeaders([$key]);
+```
+
+> Remove a header
+```php
+$request->removeHeader($key);
+```
+
+> Check if specific header exists
+```php
+$request->hasheader($key);
+```
+
+> Add new header
+```php
+$request->addHeader($key, $value);
+```
+
+## Manipulate Cookie
+
+> Added new cookie
+```php
+$request->addCookie($key, $value, $expire, $path, $domain, $secure, $httponly);
+```
+***The values $expire, $path, $domain, $secure and $httponly are optionals***
+
+> Getting all cookies values
+```php
+$request->cookies();
+```
+
+> Getting specific cookie value
+```php
+$request->cookies($key);
+```
+
+> Check if specific cookie exists
+```php
+$request->hasCookie($key);
+```
+
+> Remove specific cookie
+```php
+$request->removeCookie($key);
+```
+
+> Getting only cookies
+```php
+$request->onlyCookie([$key]);
+```
+
+> Getting except cookies
+```php
+$request->exceptCookie([$key]);
+```
+
+## Manipulate Env
+
+> Added new env
+```php
+$request->addEnv($key, $value);
+```
+
+> Getting all env values
+```php
+$request->env();
+```
+
+> Getting specific env value
+```php
+$request->env($key);
+```
+
+> Check if specific env exists
+```php
+$request->hasEnv($key);
+```
+
+> Remove specific env
+```php
+$request->removeEnv($key);
+```
+
+> Getting only env
+```php
+$request->onlyEnv([$key]);
+```
+
+> Getting except env
+```php
+$request->exceptEnv([$key]);
+```
+
+## Manipulate Session
+
+> Added new session value
+```php
+$request->addSession($key, $value);
+```
+
+> Getting all session values
+```php
+$request->session();
+```
+
+> Getting specific session value
+```php
+$request->session($key);
+```
+
+> Check if specific session exists
+```php
+$request->hasSession($key);
+```
+
+> Remove specific session value
+```php
+$request->removeSession($key);
+```
+
+> Getting only session values
+```php
+$request->onlySession([$key]);
+```
+
+> Getting except session values
+```php
+$request->exceptSession([$key]);
+```
 
 ## See too
 * How to manipulate [Response](response.md)
