@@ -1,5 +1,10 @@
 # Changelog
 
+### v2.0
+* Fixed multiline body capture request when sent by formdata
+* Fixed multiline body capture request when sent by url-encoded
+* Fixed examples
+
 ### v1.9
 * End support to PHP < 7.4
 * Added dynamic properties in Content class
