@@ -9,9 +9,10 @@
       "email": "aefs12junior@gmail.com"
     }
   ],
-  "version" : "v1.9",
+  "version" : "v2.0",
   "require": {
-    "php": ">=7.4"
+    "php": ">=7.4",
+    "ext-json": "*"
   },
   "autoload": {
     "psr-4": {
