@@ -8,21 +8,33 @@ class FormUrlEncoded implements Handler, Advancer
 {
 	private Handler $handler;
 
-	public function getBody($content)
+	private array $data;
+
+	public function __construct()
+    {
+        $this->data = [];
+    }
+
+    public function getBody($content): array
 	{
 	    if (is_array($content)) {
 	        return $content;
         }
 
-	    $body = explode('&', $content);
-	    $data = [];
+	    $this->handleSentData($content);
 
-	    foreach ($body as $parameter) {
-	        $parameterParsed = explode('=', $parameter);
-	        $data[$parameterParsed[0]] = $parameterParsed[1];
+	    return $this->data;
+	}
+
+    private function handleSentData(string $content): void
+    {
+        $body = explode('&', $content);
+
+        foreach ($body as $parameter) {
+            $parameterParsed = explode('=', $parameter);
+
+            $this->data[$parameterParsed[0]] = str_replace("%0A", "\n", $parameterParsed[1]);
         }
-
-	    return $data;
 	}
 
 	public function next(Handler $handler)
@@ -30,7 +42,7 @@ class FormUrlEncoded implements Handler, Advancer
 		$this->handler = $handler;
 	}
 
-	public function handle($server)
+	public function handle($server): array
 	{
 		if (ContentHelper::contentIs($server, 'x-www-form-urlencoded')) {
 			return $this->getBody($server->getContent());

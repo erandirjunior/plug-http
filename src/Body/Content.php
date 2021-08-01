@@ -13,13 +13,13 @@ class Content
     /**
      * @var string|array
      */
-	private $body;
+	private $requestBody;
 
 	public function __construct(Server $server)
 	{
 		$this->server = $server;
 		$this->getBodyRequest();
-		$this->createProperty();
+        $this->createProperty();
 	}
 
 	private function getBodyRequest()
@@ -37,35 +37,35 @@ class Content
 		$textPlain->next($xml);
 		$xml->next($post);
 
-		$this->body = $json->handle($this->server);
+		$this->requestBody = $json->handle($this->server);
 	}
 
 	private function createProperty()
 	{
-	    if (is_array($this->body)) {
-            foreach ($this->body as $key => $value) {
-                $this->__set($key, $value);
+        if (is_array($this->requestBody)) {
+            foreach ($this->requestBody as $key => $value) {
+                $this->$key = $value;
             }
         }
-	}
+    }
 
     public function add(string $key, $value): void
     {
-        $this->body[$key] = $value;
+        $this->requestBody[$key] = $value;
 
         $this->__set($key, $value);
     }
 
     public function remove(string $key): void
     {
-        unset($this->body[$key]);
+        unset($this->requestBody[$key]);
 
         unset($this->$key);
     }
 
     public function get(string $key)
     {
-        return $this->body[$key];
+        return $this->requestBody[$key];
     }
 
     /**
@@ -73,7 +73,7 @@ class Content
      */
     public function all()
     {
-        return $this->body;
+        return $this->requestBody;
     }
 
     public function __set($name, $value)
@@ -88,16 +88,16 @@ class Content
 
     public function except(array $keys): array
     {
-        return ArrayUtil::except($this->body, $keys);
+        return ArrayUtil::except($this->requestBody, $keys);
     }
 
     public function only(array $keys): array
     {
-        return ArrayUtil::only($this->body, $keys);
+        return ArrayUtil::only($this->requestBody, $keys);
     }
 
     public function has(string $key): bool
     {
-        return !empty($this->body[$key]);
+        return !empty($this->requestBody[$key]);
     }
 }

@@ -9,44 +9,34 @@ class FormData implements Handler, Advancer
 {
 	private Handler $handler;
 
-	public function getBody($content)
+	private array $currentData;
+
+	public function __construct()
+    {
+        $this->currentData = [];
+    }
+
+    public function getBody($content): array
 	{
-		$values = [];
+        $boundary = substr($content, 0, strpos($content, "\r\n"));
+        $parts = array_slice(explode($boundary, $content), 1);
 
-		if (!empty($content)) {
-			preg_match_all('/"(.+)"+\s+(.+(?:-{5,})?)/', $content, $matches);
+        foreach ($parts as $part) {
+            preg_match_all('/"(.+)"+\s+([^\t]+)/', $part, $matches);
 
-			foreach ($matches[1] as $key => $match) {
-				$matchKey = $this->removeCaractersOfString($match, ["'", '"']);
+            $this->handleBodySent($matches);
+        }
 
-				$values[$matchKey] = $this->getValueFormData($matches[2][$key]);
-			}
-		}
-
-		return $values;
+        return $this->currentData;
 	}
 
-	public function getValueFormData($value)
-	{
-		$valueCleared   = $this->removeCaractersOfString($value, ["'", '"']);
-		$onlyHasTraces  = preg_split("/-{20,}/", $valueCleared, PREG_SPLIT_OFFSET_CAPTURE);
-		return $this->checkIfValueIsEmpty($onlyHasTraces) > 1 ? '' : $valueCleared;
-	}
+    private function handleBodySent(array $matches): void
+    {
+        foreach ($matches[1] as $key => $match) {
+            $matchKey = str_replace(["'", '"'], '', $match);
 
-	private function checkIfValueIsEmpty($onlyHasTraces)
-	{
-		$response = true;
-
-		if (is_array($onlyHasTraces)) {
-			$response = count($onlyHasTraces) > 1;
-		}
-
-		return $response;
-	}
-
-	public function removeCaractersOfString($str, array $caracters)
-	{
-		return str_replace($caracters, '', $str);
+            $this->currentData[$matchKey] = substr($matches[2][$key], 0, -2);
+        }
 	}
 
 	public function next(Handler $handler)
@@ -54,12 +44,12 @@ class FormData implements Handler, Advancer
 		$this->handler = $handler;
 	}
 
-	private function checkIsFormData(Server $server)
+	private function checkIsFormData(Server $server): bool
 	{
 		return ContentHelper::contentIs($server, 'form-data') && $server->method() !== 'POST';
 	}
 
-	public function handle($server)
+	public function handle($server): array
 	{
 		if ($this->checkIsFormData($server)) {
 			return $this->getBody($server->getContent());
