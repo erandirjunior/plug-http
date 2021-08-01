@@ -4,8 +4,6 @@ namespace PlugRoute\Test;
 
 use PHPUnit\Framework\TestCase;
 use PlugHttp\Body\Content;
-use PlugRoute\Test\Classes\ServerClass;
-use PlugRoute\Test\Classes\ServerClassFormData;
 use PlugRoute\Test\Classes\ServerClassJson;
 use PlugRoute\Test\Classes\ServerClassTextPlain;
 use PlugRoute\Test\Classes\ServerClassUrlEncoded;
@@ -16,20 +14,6 @@ class ContentTest extends TestCase
 	public function testJson()
 	{
 		$instance = new ServerClassJson();
-		$content = new Content($instance);
-		self::assertEquals(['test' => 'myTest'], $content->all());
-	}
-
-	public function testFormData()
-	{
-		$instance = new ServerClassFormData();
-		$content = new Content($instance);
-		self::assertEquals(['test' => 'myTest'], $content->all());
-	}
-
-	public function testPost()
-	{
-		$instance = new ServerClassFormData(['REQUEST_METHOD' => 'POST']);
 		$content = new Content($instance);
 		self::assertEquals(['test' => 'myTest'], $content->all());
 	}
@@ -49,7 +33,7 @@ class ContentTest extends TestCase
     {
         $instance = new ServerClassTextPlain();
         $content = new Content($instance);
-        self::assertEquals('Text of example', $content->all());
+        self::assertEquals(['Text of example'], $content->all());
     }
 
     public function testApplicationXml()
@@ -58,17 +42,14 @@ class ContentTest extends TestCase
         $instance->flag(1);
         $content = new Content($instance);
 
-        $xml = '<?xml version="1.0" encoding="UTF-8"?>
-                <note>
-                   <to>Tove</to>
-                   <from>Jani</from>
-                   <heading>Reminder</heading>
-                   <body>Don\'t forget me this weekend!</body>
-                </note>';
+        $expected = [
+            "to" => "Tove",
+            "from" => "Jani",
+            "heading" => "Reminder",
+            "body" => "Don't forget me this weekend!",
+        ];
 
-        $element = new \SimpleXMLElement($xml);
-
-        self::assertEquals($element, $content->all());
+        self::assertEquals($expected, $content->all());
     }
 
     public function testTextXml()
@@ -77,16 +58,13 @@ class ContentTest extends TestCase
         $instance->flag(2);
         $content = new Content($instance);
 
-        $xml = '<?xml version="1.0" encoding="UTF-8"?>
-                <note>
-                   <to>Tove</to>
-                   <from>Jani</from>
-                   <heading>Reminder</heading>
-                   <body>Don\'t forget me this weekend!</body>
-                </note>';
+        $expected = [
+            "to" => "Tove",
+            "from" => "Jani",
+            "heading" => "Reminder",
+            "body" => "Don't forget me this weekend!",
+        ];
 
-        $element = new \SimpleXMLElement($xml);
-
-        self::assertEquals($element, $content->all());
+        self::assertEquals($expected, $content->all());
     }
 }
