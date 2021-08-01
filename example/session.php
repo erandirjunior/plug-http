@@ -6,6 +6,6 @@ session_start();
 
 $_SESSION['name'] = 'Erandir';
 
-$session = \PlugHttp\Session::create();
+$session = new \PlugHttp\Globals\Session();
 
 var_dump($session->all());
