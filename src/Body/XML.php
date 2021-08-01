@@ -8,10 +8,11 @@ class XML implements Handler, Advancer
 {
     private Handler $handler;
 
-    public function getBody($content)
+    public function getBody($content): array
     {
         $xml = simplexml_load_string($content);
         $json = json_encode($xml);
+
         return json_decode($json, true);
     }
 
@@ -30,7 +31,7 @@ class XML implements Handler, Advancer
         return ContentHelper::contentIs($server, 'application/xml');
     }
 
-    public function handle($server)
+    public function handle($server): array
     {
         $isTextXML = $this->isTextXml($server);
         $isApplicationXML = $this->isApplicationXml($server);
