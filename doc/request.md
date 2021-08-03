@@ -21,6 +21,11 @@ $request->name;
 $request->email;
 ```
 
+>  Getting all values as stdClass object
+```php
+$request->bodyAsObject();
+```
+
 > Getting specific body value
 ```php
 $request->get($key);
