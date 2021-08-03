@@ -9,6 +9,8 @@ use PlugHttp\Globals\File;
 use PlugHttp\Globals\Get;
 use PlugHttp\Globals\Server;
 use PlugHttp\Globals\Session;
+use PlugHttp\Utils\ArrayUtil;
+use stdClass;
 
 /**
  * Class Request
@@ -490,6 +492,16 @@ class Request
     public function all(): array
     {
         return $this->content->all();
+    }
+
+    /**
+     * Return all body data as stdClass object
+     *
+     * @return stdClass
+     */
+    public function bodyAsObject(): stdClass
+    {
+        return ArrayUtil::converToObject($this->content->all());
     }
 
     /**
