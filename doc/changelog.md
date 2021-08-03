@@ -1,5 +1,8 @@
 # Changelog
 
+### v2.1
+* Added method to return body request as stdClass object
+
 ### v2.0
 * Fixed multiline body capture request when sent by formdata
 * Fixed multiline body capture request when sent by url-encoded
