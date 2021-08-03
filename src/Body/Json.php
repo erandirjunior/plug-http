@@ -8,6 +8,8 @@ class Json implements Handler, Advancer
 {
 	private Handler $handler;
 
+    private const CONTENT_TYPE = 'json';
+
 	public function getBody($content)
 	{
 		return json_decode($content, true);
@@ -20,7 +22,7 @@ class Json implements Handler, Advancer
 
 	public function handle($server)
 	{
-		if (ContentHelper::contentIs($server, 'json')) {
+		if (ContentHelper::contentIs($server, self::CONTENT_TYPE)) {
 			return $this->getBody($server->getContent());
 		}
 		

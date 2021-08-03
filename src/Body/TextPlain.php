@@ -8,6 +8,8 @@ class TextPlain implements Handler, Advancer
 {
     private Handler $handler;
 
+    private const CONTENT_TYPE = 'text/plain';
+
     public function getBody($content): array
     {
         return [$content];
@@ -20,7 +22,7 @@ class TextPlain implements Handler, Advancer
 
     public function handle($server): array
     {
-        if (ContentHelper::contentIs($server, 'text/plain')) {
+        if (ContentHelper::contentIs($server, self::CONTENT_TYPE)) {
             return $this->getBody($server->getContent());
         }
 

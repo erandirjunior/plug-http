@@ -10,6 +10,8 @@ class FormUrlEncoded implements Handler, Advancer
 
 	private array $data;
 
+	private const CONTENT_TYPE = 'x-www-form-urlencoded';
+
 	public function __construct()
     {
         $this->data = [];
@@ -44,7 +46,7 @@ class FormUrlEncoded implements Handler, Advancer
 
 	public function handle($server): array
 	{
-		if (ContentHelper::contentIs($server, 'x-www-form-urlencoded')) {
+		if (ContentHelper::contentIs($server, self::CONTENT_TYPE)) {
 			return $this->getBody($server->getContent());
 		}
 

@@ -16,7 +16,7 @@ class XML implements Handler, Advancer
         return json_decode($json, true);
     }
 
-    public function next(Handler $handler)
+    public function next(Handler $handler): void
     {
         $this->handler = $handler;
     }

@@ -11,6 +11,8 @@ class FormData implements Handler, Advancer
 
 	private array $currentData;
 
+    private const CONTENT_TYPE = 'form-data';
+
 	public function __construct()
     {
         $this->currentData = [];
@@ -44,14 +46,14 @@ class FormData implements Handler, Advancer
 		$this->handler = $handler;
 	}
 
-	private function checkIsFormData(Server $server): bool
+	private function isFormDataContentType(Server $server): bool
 	{
-		return ContentHelper::contentIs($server, 'form-data') && $server->method() !== 'POST';
+		return ContentHelper::contentIs($server, self::CONTENT_TYPE) && $server->method() !== 'POST';
 	}
 
 	public function handle($server): array
 	{
-		if ($this->checkIsFormData($server)) {
+		if ($this->isFormDataContentType($server)) {
 			return $this->getBody($server->getContent());
 		}
 
