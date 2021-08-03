@@ -28,6 +28,8 @@ class Response
     }
 
     /**
+     * Added several headers.
+     *
      * @param array $headers
      * @return $this
      */
@@ -41,11 +43,13 @@ class Response
 	}
 
     /**
+     * Added a header.
+     *
      * @param string $header
      * @param mixed $value
      * @return $this
      */
-    public function addHeader(string $header, mixed $value): Response
+    public function addHeader(string $header, $value): Response
 	{
         $this->headers[$header] = $value;
 
@@ -53,6 +57,7 @@ class Response
 	}
 
     /**
+     * Returns the defined headers.
      * @return array
      */
     public function getHeaders(): array
@@ -61,6 +66,8 @@ class Response
 	}
 
     /**
+     * Set status code.
+     *
      * @param int $statusCode
      * @return $this
      */
@@ -72,6 +79,8 @@ class Response
 	}
 
     /**
+     * Returns the defined status code.
+     *
      * @return int
      */
     public function getStatusCode(): int
@@ -80,6 +89,8 @@ class Response
 	}
 
     /**
+     * Set all headers.
+     *
      * @return $this
      */
     public function response(): Response
@@ -94,6 +105,8 @@ class Response
 	}
 
     /**
+     * Return a json and set the header to application/json.
+     *
      * @param array $data
      * @return false|string
      */
