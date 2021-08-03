@@ -501,7 +501,13 @@ class Request
      */
     public function bodyAsObject(): stdClass
     {
-        return ArrayUtil::converToObject($this->content->all());
+        $data = $this->content->all();
+
+        if (is_array($data)) {
+            return ArrayUtil::converToObject($this->content->all());
+        }
+
+        throw new \Exception("It wasn't possible convert to object");
     }
 
     /**
